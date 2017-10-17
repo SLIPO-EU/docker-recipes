@@ -1,6 +1,11 @@
 /data/
 
+/secrets
+
 /samples/shapefile/*/output
 /samples/shapefile/*/input/*.fix
 /samples/shapefile/*/input/*.qix
-
+/samples/csv/*/output
+/samples/gpx/*/output
+/samples/geojson/*/output
+/samples/jdbc/*/output

@@ -1,3 +1,4 @@
 triplegeo/test/*
+triplegeo/target/
 triplegeo/.git
 triplegeo/.gitignore
