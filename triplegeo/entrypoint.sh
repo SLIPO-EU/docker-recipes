@@ -18,7 +18,7 @@ fi
 config_file=$(mktemp -p /var/local/triplegeo -t options-XXXXXXX.conf)
 cp ${CONFIG_FILE} ${config_file}
 
-if [ -f "${OUTPUT_DIR}" ]; then
+if [ -d "${OUTPUT_DIR}" ]; then
     sed -i -e "s~^outputDir[ ]*=[ ]*.*$~outputDir = ${OUTPUT_DIR}~"  ${config_file}
 fi
 
