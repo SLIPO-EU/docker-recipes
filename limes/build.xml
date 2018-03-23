@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="limes-recipe" default="build" basedir=".">
+  
+  <property file="build.properties" />
+  <property name="project_dir" value="limes" />
+  <property name="build_dir" value="${project_dir}/limes-core/target" />
+
+  <target name="package">
+    <exec executable="mvn" dir="${project_dir}">
+       <arg value="package" />
+       <arg value="shade:shade" />
+       <arg line="--projects limes-core -Dcheckstyle.skip=true -Dmaven.test.skip=true -Dmaven.javadoc.skip=true" />
+    </exec>
+  </target>
+
+  <!-- Prepare context directory for docker build -->
+  <target name="prepare-docker-build">
+    <mkdir dir="docker-build"/>
+    <copy file="Dockerfile" tofile="docker-build/Dockerfile" overwrite="true"/>
+    <copy file="docker-entrypoint.sh" tofile="docker-build/docker-entrypoint.sh" overwrite="true"/>
+    <copy file="${build_dir}/limes-core-${limes.version}.jar" tofile="docker-build/limes-standalone.jar" overwrite="true" />
+    <!--
+    <copy todir="docker-build/dependency">
+      <fileset dir="${build_dir}/dependency">
+        <include name="*.jar"/>      
+      </fileset>  
+    </copy>
+    -->
+  </target>
+
+</project>
+

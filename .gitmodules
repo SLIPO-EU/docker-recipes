@@ -1,3 +1,6 @@
 [submodule "triplegeo/triplegeo"]
 	path = triplegeo/triplegeo
 	url = git@github.com:SLIPO-EU/TripleGeo.git
+[submodule "limes/limes"]
+	path = limes/limes
+	url = https://github.com/dice-group/LIMES.git
