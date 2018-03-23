@@ -2,7 +2,7 @@
 
 set -e
 
-CLASSPATH="target/triplegeo-${TRIPLEGEO_VERSION}.jar:target/lib/*"
+CLASSPATH="triplegeo.jar:lib/*"
 
 MAIN_CLASS=eu.slipo.athenarc.triplegeo.Executor
 

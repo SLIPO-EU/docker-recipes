@@ -2,6 +2,10 @@
 
 ### Build
 
+Package triplegeo tool along with dependencies (database drivers are packaged as a Maven submodule):
+
+    mvn package
+
 Build image:
 
     docker build -t local/triplegeo:1.2 .

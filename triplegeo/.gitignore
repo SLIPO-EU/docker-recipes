@@ -2,6 +2,9 @@
 
 /secrets
 
+/target/
+/database-drivers/target
+
 /samples/shapefile/*/output
 /samples/shapefile/*/input/*.fix
 /samples/shapefile/*/input/*.qix

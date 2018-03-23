@@ -1,23 +1,13 @@
 FROM openjdk:8-jdk
 
-ENV TRIPLEGEO_VERSION "1.2-SNAPSHOT"
+ENV TRIPLEGEO_VERSION "1.2"
 
-RUN apt-get update && apt-get install -y maven
-
-#
-# Build
-#
+RUN mkdir /var/local/triplegeo /usr/local/triplegeo /usr/local/triplegeo/lib
 
 WORKDIR /usr/local/triplegeo/
 
-COPY triplegeo ./
-
-# Customize POM (declare additional runtime deps)
-COPY pom.xml ./pom.xml
-
-RUN mvn package
-
-RUN mkdir /var/local/triplegeo
+COPY triplegeo/target/lib/ database-drivers/target/dependency/ ./lib/
+COPY triplegeo/target/triplegeo-1.2-SNAPSHOT.jar ./triplegeo.jar
 
 #
 # Define environment
@@ -33,8 +23,8 @@ ENV JAVA_MEM_OPTS "-Xmx256m -Xms64m"
 ENV CONFIG_FILE "/var/local/triplegeo/options.conf"
 
 # Specify an output directory (overrides configuration file) 
-ENV OUTPUT_DIR ""
 #ENV OUTPUT_DIR "/var/local/triplegeo/output/"
+ENV OUTPUT_DIR ""
 
 ## Environment for file-based input ##
 
@@ -59,7 +49,6 @@ ENV DB_PASSWORD_FILE ""
 # Define entrypoint
 #
 
-COPY entrypoint.sh entrypoint.sh
-RUN chmod +x entrypoint.sh
-
-CMD ["./entrypoint.sh"]
+COPY docker-entrypoint.sh ./
+RUN chmod +x docker-entrypoint.sh
+CMD ["./docker-entrypoint.sh"]
