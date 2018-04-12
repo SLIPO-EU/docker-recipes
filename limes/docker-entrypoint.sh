@@ -19,7 +19,7 @@ cp ${CONFIG_FILE} ${config_file}
 #
 
 if [ -d "${OUTPUT_DIR}" ]; then
-    output_dir="${OUTPUT_DIR%%/}/"
+    output_dir="${OUTPUT_DIR%%/}"
     xmlstarlet ed --inplace --update LIMES/ACCEPTANCE/FILE -v "${output_dir}/accepted.nt" ${config_file}
     xmlstarlet ed --inplace --update LIMES/REVIEW/FILE -v "${output_dir}/review.nt" ${config_file}
 fi
