@@ -5,7 +5,7 @@
 
   <groupId>eu.slipo.docker-recipes</groupId>
   <artifactId>triplegeo-recipe</artifactId>
-  <version>1.2</version>
+  <version>1.4</version>
   <packaging>pom</packaging>
   
   <properties>

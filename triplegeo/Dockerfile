@@ -1,13 +1,13 @@
 FROM openjdk:8-jdk
 
-ENV TRIPLEGEO_VERSION "1.2"
+ENV TRIPLEGEO_VERSION "1.4"
 
 RUN mkdir /var/local/triplegeo /usr/local/triplegeo /usr/local/triplegeo/lib
 
 WORKDIR /usr/local/triplegeo/
 
 COPY triplegeo/target/lib/ database-drivers/target/dependency/ ./lib/
-COPY triplegeo/target/triplegeo-1.2-SNAPSHOT.jar ./triplegeo.jar
+COPY triplegeo/target/triplegeo-1.4-SNAPSHOT.jar ./triplegeo.jar
 
 #
 # Define environment
@@ -16,15 +16,16 @@ COPY triplegeo/target/triplegeo-1.2-SNAPSHOT.jar ./triplegeo.jar
 ## Enviroment for Java runtime ##
 
 ENV JAVA_XX_OPTS "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
-ENV JAVA_MEM_OPTS "-Xmx256m -Xms64m"
+ENV JAVA_MEM_OPTS "-Xmx512m -Xms64m"
 
 ## Environment common to all input sources ##
 
 ENV CONFIG_FILE "/var/local/triplegeo/options.conf"
+ENV MAPPING_FILE "/var/local/triplegeo/mappings.yml"
+ENV CLASSIFICATION_FILE "/var/local/triplegeo/classification.csv"
 
 # Specify an output directory (overrides configuration file) 
-#ENV OUTPUT_DIR "/var/local/triplegeo/output/"
-ENV OUTPUT_DIR ""
+ENV OUTPUT_DIR "/var/local/triplegeo/output/"
 
 ## Environment for file-based input ##
 

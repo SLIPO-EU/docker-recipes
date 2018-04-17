@@ -4,10 +4,20 @@ set -e
 
 CLASSPATH="triplegeo.jar:lib/*"
 
-MAIN_CLASS=eu.slipo.athenarc.triplegeo.Executor
+MAIN_CLASS=eu.slipo.athenarc.triplegeo.Extractor
 
-if [ -z "${CONFIG_FILE}" ]; then
-    echo "Cannot find configuration file (specify CONFIG_FILE in environment)!" 1>&2
+if [ ! -f "${CONFIG_FILE}" ]; then
+    echo "No configuration given (specify CONFIG_FILE in environment)!" 1>&2
+    exit 1
+fi
+
+if [ ! -f "${MAPPING_FILE}" ]; then
+    echo "No RDF mappings are given (specify MAPPING_FILE in environment)!" 1>&2
+    exit 1
+fi
+
+if [ ! -f "${CLASSIFICATION_FILE}" ]; then
+    echo "No classification file is given (specify CLASSIFICATION_FILE in environment)!" 1>&2
     exit 1
 fi
 
@@ -18,18 +28,20 @@ fi
 config_file=$(mktemp -p /var/local/triplegeo -t options-XXXXXXX.conf)
 cp ${CONFIG_FILE} ${config_file}
 
-if [ -d "${OUTPUT_DIR}" ]; then
-    output_dir="${OUTPUT_DIR%%/}/"
-    sed -i -e "s~^outputDir[ ]*=[ ]*.*$~outputDir = ${output_dir}~"  ${config_file}
-fi
+output_dir="${OUTPUT_DIR%%/}/"
+sed -i -e "s~^outputDir[ ]*=[ ]*.*$~outputDir = ${output_dir}~"  ${config_file}
+
+sed -i -e "s~^tmpDir[ ]*=[ ]*.*$~tmpDir = /tmp/~"  ${config_file}
+
+sed -i -e "s~^mappingSpec[ ]*=[ ]*.*$~mappingSpec = ${MAPPING_FILE}~"  ${config_file}
+sed -i -e "s~^classificationSpec[ ]*=[ ]*.*$~classificationSpec = ${CLASSIFICATION_FILE}~"  ${config_file}
 
 # The INPUT_FILE may be a single file or a list of colon-separated input files
-if [ -n "${INPUT_FILE}" ]; then
-    # Split and join by ';' as expected by triplegeo
-    input_files=$(IFS=':' p=( $INPUT_FILE ); IFS=';'; echo "${p[*]}")
-    # Edit configuration file
-    sed -i -e "s~^inputFiles[ ]*=[ ]*.*$~inputFiles = ${input_files}~"  ${config_file}
-fi
+# Split and join by ';' as expected by triplegeo
+input_files=$(IFS=':' p=( $INPUT_FILE ); IFS=';'; echo "${p[*]}")
+# Edit configuration file
+sed -i -e "s~^inputFiles[ ]*=[ ]*.*$~inputFiles = ${input_files}~"  ${config_file}
+
 
 if [ -n "${DB_URL}" ]; then
     if [ -n "${INPUT_FILE}" ]; then

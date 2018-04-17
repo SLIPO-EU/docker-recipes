@@ -1,5 +1,7 @@
 secrets/*
+triplegeo/src/*
 triplegeo/test/*
+triplegeo/docs/*
 triplegeo/.git
 triplegeo/.gitignore
 
