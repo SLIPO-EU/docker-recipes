@@ -11,8 +11,8 @@ if [ ! -f "${CONFIG_FILE}" ]; then
     exit 1
 fi
 
-if [ ! -f "${MAPPING_FILE}" ]; then
-    echo "No RDF mappings are given (specify MAPPING_FILE in environment)!" 1>&2
+if [ ! -f "${MAPPINGS_FILE}" ]; then
+    echo "No RDF mappings are given (specify MAPPINGS_FILE in environment)!" 1>&2
     exit 1
 fi
 
@@ -33,7 +33,7 @@ sed -i -e "s~^outputDir[ ]*=[ ]*.*$~outputDir = ${output_dir}~"  ${config_file}
 
 sed -i -e "s~^tmpDir[ ]*=[ ]*.*$~tmpDir = /tmp/~"  ${config_file}
 
-sed -i -e "s~^mappingSpec[ ]*=[ ]*.*$~mappingSpec = ${MAPPING_FILE}~"  ${config_file}
+sed -i -e "s~^mappingSpec[ ]*=[ ]*.*$~mappingSpec = ${MAPPINGS_FILE}~"  ${config_file}
 sed -i -e "s~^classificationSpec[ ]*=[ ]*.*$~classificationSpec = ${CLASSIFICATION_FILE}~"  ${config_file}
 
 # The INPUT_FILE may be a single file or a list of colon-separated input files

@@ -21,7 +21,7 @@ ENV JAVA_MEM_OPTS "-Xmx512m -Xms64m"
 ## Environment common to all input sources ##
 
 ENV CONFIG_FILE "/var/local/triplegeo/options.conf"
-ENV MAPPING_FILE "/var/local/triplegeo/mappings.yml"
+ENV MAPPINGS_FILE "/var/local/triplegeo/mappings.yml"
 ENV CLASSIFICATION_FILE "/var/local/triplegeo/classification.csv"
 
 # Specify an output directory (overrides configuration file) 
