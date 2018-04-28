@@ -15,13 +15,34 @@ config_file=$(mktemp -p /var/local/limes -t config-XXXXXXX.xml)
 cp ${CONFIG_FILE} ${config_file}
 
 #
+# Determine output format/extension
+#
+
+output_format=$(cat ${config_file}| xmlstarlet fo --dropdtd| xmlstarlet sel -t --value-of LIMES/OUTPUT)
+output_extension=
+case ${output_format} in
+NT|N-TRIPLES|N_TRIPLES|nt)
+  output_extension="nt"
+  ;;
+TTL|ttl)
+  output_extension="ttl"
+  ;;
+N3|n3|Notation3)
+  output_extension="n3"
+  ;;
+*)
+  output_extension="nt"
+  ;;
+esac
+
+#
 # Edit configuration file according to environment
 #
 
 if [ -d "${OUTPUT_DIR}" ]; then
     output_dir="${OUTPUT_DIR%%/}"
-    xmlstarlet ed --inplace --update LIMES/ACCEPTANCE/FILE -v "${output_dir}/accepted.nt" ${config_file}
-    xmlstarlet ed --inplace --update LIMES/REVIEW/FILE -v "${output_dir}/review.nt" ${config_file}
+    xmlstarlet ed --inplace --update LIMES/ACCEPTANCE/FILE -v "${output_dir}/${ACCEPTED_NAME}.${output_extension}" ${config_file}
+    xmlstarlet ed --inplace --update LIMES/REVIEW/FILE -v "${output_dir}/${REVIEW_NAME}.${output_extension}" ${config_file}
 fi
 
 if [ -n "${SOURCE_FILE}" ]; then
