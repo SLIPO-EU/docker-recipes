@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="fagi-recipe" default="build" basedir=".">
+  
+  <property file="build.properties" />
+  <property name="project_dir" value="fagi" />
+  <property name="build_dir" value="${project_dir}/target" />
+
+  <target name="package">
+    <exec executable="mvn" dir="${project_dir}">
+       <arg value="clean" />
+       <arg value="package" />
+    </exec>
+  </target>
+
+  <!-- Prepare context directory for docker build -->
+  <target name="prepare-docker-build">
+    <mkdir dir="docker-build"/>
+    
+    <copy file="Dockerfile" tofile="docker-build/Dockerfile" overwrite="true"/>
+    <copy file="docker-entrypoint.sh" tofile="docker-build/docker-entrypoint.sh" overwrite="true"/>
+    
+    <!-- Fixme 1.0-SNAPSHOT is not the actual version (fix POM of submodule) -->
+    <copy file="${build_dir}/fagi-1.0-SNAPSHOT.jar" tofile="docker-build/fagi-standalone.jar" overwrite="true" />
+    
+    <copy file="log4j2.xml" tofile="docker-build/log4j2.xml" overwrite="true"/>
+    <!--
+    <copy todir="docker-build/dependency">
+      <fileset dir="${build_dir}/dependency">
+        <include name="*.jar"/>      
+      </fileset>  
+    </copy>
+    -->
+  </target>
+
+</project>
+

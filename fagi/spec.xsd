@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="specification">	
+  <xs:complexType>
+    <xs:sequence>
+		<xs:element name="inputFormat">
+		  <xs:simpleType>
+			<xs:restriction base="xs:string">
+			  <xs:enumeration value="NT"/>
+			  <xs:enumeration value="TTL"/>
+			  <xs:enumeration value="RDF"/>
+			  <xs:enumeration value="OWL"/>
+			  <xs:enumeration value="JSONLD"/>			  
+			  <xs:enumeration value="RJ"/>
+			  <xs:enumeration value="TRIG"/>
+			  <xs:enumeration value="NQ"/>
+			  <xs:enumeration value="TRIX"/>
+			</xs:restriction>
+		  </xs:simpleType>
+		</xs:element>
+		<xs:element name="outputFormat">
+		  <xs:simpleType>
+			<xs:restriction base="xs:string">
+			  <xs:enumeration value="NT"/>
+			  <xs:enumeration value="TTL"/>
+			  <xs:enumeration value="RDF"/>
+			  <xs:enumeration value="OWL"/>
+			  <xs:enumeration value="JSONLD"/>			  
+			  <xs:enumeration value="RJ"/>
+			  <xs:enumeration value="TRIG"/>
+			  <xs:enumeration value="NQ"/>
+			  <xs:enumeration value="TRIX"/>
+			</xs:restriction>
+		  </xs:simpleType>
+		</xs:element>
+		<xs:element name="locale" minOccurs="0">
+		  <xs:simpleType>
+			<xs:restriction base="xs:string">
+			  <xs:enumeration value="EN"/>
+			  <xs:enumeration value="en"/>
+			  <xs:enumeration value="EN-GB"/>
+			  <xs:enumeration value="EN-US"/>			  			  
+			  <xs:enumeration value="ENGLISH"/>
+			  <xs:enumeration value="english"/>
+			  <xs:enumeration value="DE"/>
+			  <xs:enumeration value="de"/>
+			  <xs:enumeration value="GERMAN"/>
+			  <xs:enumeration value="german"/>
+			  <xs:enumeration value="de-AT"/>
+			  <xs:enumeration value="DE-AT"/>
+			  <xs:enumeration value="EL"/>
+			  <xs:enumeration value="el"/>
+			  <xs:enumeration value="greek"/>
+			</xs:restriction>
+		  </xs:simpleType>
+		</xs:element>		
+		<xs:element name="left">
+		  <xs:complexType>
+			<xs:sequence>
+			  <xs:element name="id" type="xs:string"/>
+			  <xs:element name="endpoint" type="xs:string" minOccurs="0"/>
+			  <xs:element name="file" type="xs:anyURI"/>
+			  <xs:element name="categories" type="xs:anyURI" minOccurs="0"/>
+			</xs:sequence>
+		  </xs:complexType>
+		</xs:element> 
+		<xs:element name="right">
+		  <xs:complexType>
+			<xs:sequence>
+			  <xs:element name="id" type="xs:string"/>
+			  <xs:element name="endpoint" type="xs:string" minOccurs="0"/>
+			  <xs:element name="file" type="xs:anyURI"/>
+			  <xs:element name="categories" type="xs:anyURI" minOccurs="0"/>
+			</xs:sequence>
+		  </xs:complexType>
+		</xs:element>
+		<xs:element name="links">
+		  <xs:complexType>
+			<xs:sequence>
+			  <xs:element name="id" type="xs:string"/>
+			  <xs:element name="endpoint" type="xs:string" minOccurs="0"/>
+			  <xs:element name="file" type="xs:anyURI"/>
+			</xs:sequence>
+		  </xs:complexType>
+		</xs:element>
+		<xs:element name="target">
+		  <xs:complexType>
+			<xs:sequence>
+			  <xs:element name="id" type="xs:string"/>
+			  <xs:element name="resourceURI" type="xs:anyURI"/>
+			  <xs:element name="mergeWith">
+				<xs:simpleType>
+				  <xs:restriction base="xs:string">
+				    <xs:enumeration value="left"/>
+				    <xs:enumeration value="right"/>
+				    <xs:enumeration value="new"/>
+				  </xs:restriction>
+				</xs:simpleType>
+			  </xs:element>				  
+			  <xs:element name="file" type="xs:anyURI"/>
+			</xs:sequence>
+		  </xs:complexType>
+		</xs:element>				
+    </xs:sequence>
+  </xs:complexType>
+  </xs:element>
+</xs:schema> 

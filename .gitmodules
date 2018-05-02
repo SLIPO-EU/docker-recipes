@@ -4,3 +4,6 @@
 [submodule "limes/limes"]
 	path = limes/limes
 	url = https://github.com/dice-group/LIMES.git
+[submodule "fagi/fagi"]
+	path = fagi/fagi
+	url = https://github.com/SLIPO-EU/FAGI

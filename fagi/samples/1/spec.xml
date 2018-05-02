@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<specification>
+	<inputFormat>NT</inputFormat>
+	<outputFormat>NT</outputFormat>
+	<locale></locale>
+	<left>
+		<id>a</id>
+		<endpoint></endpoint>
+		<file>input/a.nt</file>
+		<categories></categories>
+	</left>
+	<right>
+		<id>b</id>
+		<endpoint></endpoint>
+		<file>input/b.nt</file>
+		<categories></categories>
+	</right>
+	<links>
+		<id>links</id>
+		<endpoint></endpoint>
+		<file>input/links.nt</file>
+	</links>	
+	<target>
+		<id>fused</id>
+		<resourceURI>http://example.com/fagi/1</resourceURI>	
+		<mergeWith>new</mergeWith>
+		<file>output/fused.nt</file>
+	</target>
+</specification>
+
+
+
+
+
