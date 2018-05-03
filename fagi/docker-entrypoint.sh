@@ -84,11 +84,14 @@ xmlstarlet ed --inplace --update specification/target/id -v "${TARGET_ID}" ${spe
 target_mode=$(echo ${TARGET_MODE} | tr '[:upper:]' '[:lower:]') # normalize to lowercase (as expected)
 xmlstarlet ed --inplace --update specification/target/mode -v "${target_mode}" ${spec_file}
 
-test -n "${TARGET_A_NAME}" && xmlstarlet ed --inplace --update specification/target/fileA -v "${output_dir}/${TARGET_A_NAME}.${output_extension}" ${spec_file}
-test -n "${TARGET_B_NAME}" && xmlstarlet ed --inplace --update specification/target/fileB -v "${output_dir}/${TARGET_B_NAME}.${output_extension}" ${spec_file}
-test -n "${TARGET_C_NAME}" && xmlstarlet ed --inplace --update specification/target/fileC -v "${output_dir}/${TARGET_C_NAME}.${output_extension}" ${spec_file}
-test -n "${TARGET_REVIEW_NAME}" && xmlstarlet ed --inplace --update specification/target/ambiguous -v "${output_dir}/${TARGET_REVIEW_NAME}.${output_extension}" ${spec_file}
-test -n "${TARGET_STATS_NAME}" && xmlstarlet ed --inplace --update specification/target/stats -v "${output_dir}/${TARGET_STATS_NAME}.txt" ${spec_file}
+test -n "${TARGET_FUSED_NAME}" && \
+    xmlstarlet ed --inplace --update specification/target/fused -v "${output_dir}/${TARGET_FUSED_NAME}.${output_extension}" ${spec_file}
+test -n "${TARGET_REMAINING_NAME}" && \
+    xmlstarlet ed --inplace --update specification/target/remaining -v "${output_dir}/${TARGET_REMAINING_NAME}.${output_extension}" ${spec_file}
+test -n "${TARGET_REVIEW_NAME}" && \
+    xmlstarlet ed --inplace --update specification/target/ambiguous -v "${output_dir}/${TARGET_REVIEW_NAME}.${output_extension}" ${spec_file}
+test -n "${TARGET_STATS_NAME}" && \
+    xmlstarlet ed --inplace --update specification/target/statistics -v "${output_dir}/${TARGET_STATS_NAME}.json" ${spec_file}
 
 #
 # Run command

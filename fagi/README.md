@@ -24,8 +24,11 @@ Run on a pair of files `a.nt` (the left) and `b.nt` (the right) using links `lin
         --volume "$(pwd)/samples/1/input/b.nt:/var/local/fagi/input/b.nt:ro" \
         --volume "$(pwd)/samples/1/input/links.nt:/var/local/fagi/input/links.nt:ro" \
         --volume "$(pwd)/volumes/1/output:/var/local/fagi/output" \
-        --env TARGET_MODE=L_MODE \
-        --env TARGET_A_NAME=fused-a --env TARGET_B_NAME=fused-b --env TARGET_C_NAME=fused-c --env TARGET_REVIEW_NAME=review --env TARGET_STATS_NAME=stats \
+        --env TARGET_MODE=AA_MODE \
+        --env TARGET_FUSED_NAME=fused \
+        --env TARGET_REMAINING_NAME=remaining \
+        --env TARGET_REVIEW_NAME=review \
+        --env TARGET_STATS_NAME=stats \
         local/fagi:1.2
 
  

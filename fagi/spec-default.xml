@@ -23,12 +23,11 @@
 	</links>	
 	<target>
 		<id>ab</id>
-		<mode>l_mode</mode>
+		<mode>aa_mode</mode>
 		<outputDir>output</outputDir>
-		<fileA>fused-a.nt</fileA>
-		<fileB>fused-b.nt</fileB>
-		<fileC>fused-c.nt</fileC>
+		<fused>fused.nt</fused>
+		<remaining>fused-b.nt</remaining>
 		<ambiguous>review.nt</ambiguous>
-		<stats>stats.txt</stats>
+		<statistics>stats.txt</statistics>
 	</target>
 </specification>
