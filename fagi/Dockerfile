@@ -1,13 +1,13 @@
 FROM openjdk:8-jdk
 
-ENV FAGI_VERSION "1.1"
+ENV FAGI_VERSION "1.2"
 
 RUN apt-get update && apt-get install -y xmlstarlet
 RUN mkdir /var/local/fagi
 
 WORKDIR /usr/local/fagi/
 
-COPY fagi-standalone.jar docker-entrypoint.sh log4j2.xml ./
+COPY fagi-standalone.jar docker-entrypoint.sh log4j2.xml spec-default.xml ./
 
 #
 # Define environment
@@ -20,16 +20,33 @@ ENV JAVA_MEM_OPTS "-Xmx256m -Xms64m"
 
 ## Environment for program invocation ##
 
-ENV SPEC_FILE "/var/local/fagi/spec.xml"
+ENV LOCALE ""
+
+ENV INPUT_FORMAT "NT"
+ENV OUTPUT_FORMAT "NT"
+
+ENV SIMILARITY "jarowinkler"
 ENV RULES_FILE "/var/local/fagi/rules.xml"
 
-ENV OUTPUT_DIR "/var/local/fagi/output/"
-
+ENV LEFT_ID "a"
 ENV LEFT_FILE "/var/local/fagi/input/a.nt"
+ENV LEFT_CLASSIFICATION_FILE ""
+
+ENV RIGHT_ID "b"
 ENV RIGHT_FILE "/var/local/fagi/input/b.nt"
+ENV RIGHT_CLASSIFICATION_FILE ""
+
+ENV LINKS_ID "links"
 ENV LINKS_FILE "/var/local/fagi/input/links.nt"
 
-ENV TARGET_NAME "fused"
+ENV OUTPUT_DIR "/var/local/fagi/output/"
+ENV TARGET_MODE "AA_MODE"
+ENV TARGET_ID "ab"
+ENV TARGET_A_NAME ""
+ENV TARGET_B_NAME ""
+ENV TARGET_C_NAME ""
+ENV TARGET_REVIEW_NAME ""
+ENV TARGET_STATS_NAME ""
 
 #
 # Define entrypoint

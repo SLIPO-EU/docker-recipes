@@ -20,10 +20,11 @@
     <copy file="Dockerfile" tofile="docker-build/Dockerfile" overwrite="true"/>
     <copy file="docker-entrypoint.sh" tofile="docker-build/docker-entrypoint.sh" overwrite="true"/>
     
-    <!-- Fixme 1.0-SNAPSHOT is not the actual version (fix POM of submodule) -->
-    <copy file="${build_dir}/fagi-1.0-SNAPSHOT.jar" tofile="docker-build/fagi-standalone.jar" overwrite="true" />
+    <copy file="${build_dir}/fagi-${fagi.version}.jar" tofile="docker-build/fagi-standalone.jar" overwrite="true" />
     
     <copy file="log4j2.xml" tofile="docker-build/log4j2.xml" overwrite="true"/>
+    <copy file="spec-default.xml" tofile="docker-build/spec-default.xml" overwrite="true"/>
+    
     <!--
     <copy todir="docker-build/dependency">
       <fileset dir="${build_dir}/dependency">
