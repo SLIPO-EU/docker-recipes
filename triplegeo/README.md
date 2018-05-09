@@ -26,7 +26,7 @@ by bind-mounting the proper input/output volumes:
         --volume "$(pwd)/samples/shapefile/1/mappings.yml:/var/local/triplegeo/mappings.yml:ro" \
         --volume "$(pwd)/samples/shapefile/1/classification.csv:/var/local/triplegeo/classification.csv:ro" \
         --volume "$(pwd)/samples/shapefile/1/input:/var/local/triplegeo/input:rw" \
-        --volume "$(pwd)/samples/shapefile/1/output:/var/local/triplegeo/output:rw" \
+        --volume "$(pwd)/volumes/shapefile/1/output:/var/local/triplegeo/output:rw" \
         --env INPUT_FILE=/var/local/triplegeo/input/points.shp \
         --tmpfs /tmp:size=128M 
         local/triplegeo:1.4
@@ -41,7 +41,7 @@ generates a corresponding output file (e.g for `TTL` serialization, `foo.csv` ge
         --volume "$(pwd)/samples/csv/1/mappings.yml:/var/local/triplegeo/mappings.yml:ro" \
         --volume "$(pwd)/samples/csv/1/classification.csv:/var/local/triplegeo/classification.csv:ro" \
         --volume "$(pwd)/samples/csv/1/input:/var/local/triplegeo/input:ro" \
-        --volume "$(pwd)/samples/csv/1/output:/var/local/triplegeo/output" \
+        --volume "$(pwd)/volumes/csv/1/output:/var/local/triplegeo/output" \
         --env INPUT_FILE=/var/local/triplegeo/input/part1.csv:/var/local/triplegeo/input/part2.csv:/var/local/triplegeo/input/part3.csv \
         local/triplegeo:1.4
 
@@ -58,7 +58,7 @@ password is needed to connect to the database, the password file must be bind-mo
         --volume "$(pwd)/samples/jdbc/1/options.conf:/var/local/triplegeo/options.conf:ro" \
         --volume "$(pwd)/samples/jdbc/1/mappings.yml:/var/local/triplegeo/mappings.yml:ro" \
         --volume "$(pwd)/samples/jdbc/1/classification.csv:/var/local/triplegeo/classification.csv:ro" \
-        --volume "$(pwd)/samples/jdbc/1/output:/var/local/triplegeo/output:rw" \
+        --volume "$(pwd)/volumes/jdbc/1/output:/var/local/triplegeo/output:rw" \
         --link postgres-1:db-server
         --env DB_URL=jdbc:postgresql://db-server:5432/triplegeo-examples \
         --env DB_USERNAME=slipo \
