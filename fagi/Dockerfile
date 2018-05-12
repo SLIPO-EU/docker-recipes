@@ -25,7 +25,7 @@ ENV LOCALE ""
 ENV INPUT_FORMAT "NT"
 ENV OUTPUT_FORMAT "NT"
 
-ENV SIMILARITY "jarowinkler"
+ENV SIMILARITY ""
 ENV RULES_FILE "/var/local/fagi/rules.xml"
 
 ENV LEFT_ID "a"

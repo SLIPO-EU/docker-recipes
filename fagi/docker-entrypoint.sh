@@ -60,20 +60,27 @@ esac
 # Edit configuration file according to environment
 #
 
-test -n "${LOCALE}" && xmlstarlet ed --inplace --update specification/locale -v "${LOCALE}" ${spec_file}
+test -n "${LOCALE}" && \
+    xmlstarlet ed --inplace --update specification/locale -v "${LOCALE}" ${spec_file}
 
-xmlstarlet ed --inplace --update specification/inputFormat -v "${INPUT_FORMAT}" ${spec_file}
-xmlstarlet ed --inplace --update specification/outputFormat -v "${OUTPUT_FORMAT}" ${spec_file}
+test -n "${INPUT_FORMAT}" && test "${INPUT_FORMAT}" != "NT" && \
+    xmlstarlet ed --inplace --update specification/inputFormat -v "${INPUT_FORMAT}" ${spec_file}
 
-xmlstarlet ed --inplace --update specification/similarity -v "${SIMILARITY}" ${spec_file}
+test -n "${OUTPUT_FORMAT}" && test "${OUTPUT_FORMAT}" != "NT" && \
+    xmlstarlet ed --inplace --update specification/outputFormat -v "${OUTPUT_FORMAT}" ${spec_file}
+
+test -n "${SIMILARITY}" && \
+    xmlstarlet ed --inplace --update specification/similarity -v "${SIMILARITY}" ${spec_file}
 
 xmlstarlet ed --inplace --update specification/left/id -v "${LEFT_ID}" ${spec_file}
 xmlstarlet ed --inplace --update specification/left/file -v "${LEFT_FILE}" ${spec_file}
-xmlstarlet ed --inplace --update specification/left/categories -v "${LEFT_CLASSIFICATION_FILE}" ${spec_file}
+test -n "${LEFT_CLASSIFICATION_FILE}" && \
+    xmlstarlet ed --inplace --update specification/left/categories -v "${LEFT_CLASSIFICATION_FILE}" ${spec_file}
 
 xmlstarlet ed --inplace --update specification/right/id -v "${RIGHT_ID}" ${spec_file}
 xmlstarlet ed --inplace --update specification/right/file -v "${RIGHT_FILE}" ${spec_file}
-xmlstarlet ed --inplace --update specification/right/categories -v "${RIGHT_CLASSIFICATION_FILE}" ${spec_file}
+test -n "${RIGHT_CLASSIFICATION_FILE}" && \
+    xmlstarlet ed --inplace --update specification/right/categories -v "${RIGHT_CLASSIFICATION_FILE}" ${spec_file}
 
 xmlstarlet ed --inplace --update specification/links/id -v "${LINKS_ID}" ${spec_file}
 xmlstarlet ed --inplace --update specification/links/file -v "${LINKS_FILE}" ${spec_file}
