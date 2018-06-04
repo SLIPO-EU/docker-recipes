@@ -1,0 +1,11 @@
+secrets/*
+samples/*
+volumes/*
+
+deer/examples/*
+deer/manual/*
+deer/scripts/*
+deer/deer-core/src/*
+deer/deer-core/target/*
+deer/deer-cli/src/*
+

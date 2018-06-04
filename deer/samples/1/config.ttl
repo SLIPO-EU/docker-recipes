@@ -1,0 +1,51 @@
+@prefix : <http://deer.aksw.org/vocabulary/#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+:node_reader1
+              :implementedIn     :DefaultModelReader ;
+              :fromUri           <http://de.dbpedia.org/resource/Paderborn> ;
+              :useEndpoint       <http://de.dbpedia.org/sparql> ;
+              :hasOutput         ( :node_conf ) .
+
+:node_reader2
+              :implementedIn     :DefaultModelReader ;
+              :fromUri           <http://dbpedia.org/resource/Paderborn> ;
+              :useEndpoint       <http://dbpedia.org/sparql> ;
+              :hasOutput         ( :node_geofusion ) .
+
+:node_conf
+              :implementedIn     :AuthorityConformationEnrichmentOperator ;
+              :hasInput          ( :node_reader1 ) ;
+              :hasOutput         ( :node_geofusion ) ;
+              :sourceSubjectAuthority
+                                 "http://dbpedia.org" ;
+              :targetSubjectAuthority
+                                 "http://deer.org" .
+
+:node_geofusion
+              :implementedIn     :GeoFusionEnrichmentOperator ;
+              :hasInput          ( :node_conf :node_reader2 ) ;
+              :hasOutput         ( :node_filter ) ;
+              :fusionAction      "takeAll" ;
+              :mergeOtherStatements
+                                 "true" .
+
+:node_filter
+              :implementedIn     :FilterEnrichmentOperator ;
+              :hasInput          ( :node_geofusion ) ;
+              :hasOutput         ( :node_writer ) ;
+              :selectors         (
+                    [ :predicate geo:lat ]
+                    [ :predicate geo:long ]
+                    [ :predicate rdfs:label ]
+                    [ :predicate owl:sameAs ]
+              ) .
+
+:node_writer
+              :implementedIn     :DefaultModelWriter ;
+              :outputFile        "out.ttl" ;
+              :outputFormat      "Turtle" ;
+              :hasInput          ( :node_filter ) .
+

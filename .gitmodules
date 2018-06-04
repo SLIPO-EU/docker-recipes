@@ -7,3 +7,6 @@
 [submodule "fagi/fagi"]
 	path = fagi/fagi
 	url = https://github.com/SLIPO-EU/FAGI
+[submodule "deer/deer"]
+	path = deer/deer
+	url = https://github.com/SLIPO-EU/deer
