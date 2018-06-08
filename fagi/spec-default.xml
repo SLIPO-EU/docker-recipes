@@ -4,17 +4,20 @@
 	<outputFormat>NT</outputFormat>
 	<locale></locale>
 	<similarity>jarowinkler</similarity>
-	<left>
+	<rules>rules.xml</rules>
+    <left>
 		<id>a</id>
 		<endpoint></endpoint>
 		<file>input/a.nt</file>
 		<categories></categories>
+        <date></date>
 	</left>
 	<right>
 		<id>b</id>
 		<endpoint></endpoint>
 		<file>input/b.nt</file>
 		<categories></categories>
+        <date></date>
 	</right>
 	<links>
 		<id>links</id>
@@ -26,8 +29,8 @@
 		<mode>aa_mode</mode>
 		<outputDir>output</outputDir>
 		<fused>fused.nt</fused>
-		<remaining>fused-b.nt</remaining>
+		<remaining>remaining.nt</remaining>
 		<ambiguous>review.nt</ambiguous>
-		<statistics>stats.txt</statistics>
+		<statistics>stats.json</statistics>
 	</target>
 </specification>

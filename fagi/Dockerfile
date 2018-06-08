@@ -3,7 +3,7 @@ FROM openjdk:8-jdk
 ENV FAGI_VERSION "1.2"
 
 RUN apt-get update && apt-get install -y xmlstarlet
-RUN mkdir /var/local/fagi
+RUN mkdir /var/local/fagi /usr/local/fagi
 
 WORKDIR /usr/local/fagi/
 
@@ -13,12 +13,7 @@ COPY fagi-standalone.jar docker-entrypoint.sh log4j2.xml spec-default.xml ./
 # Define environment
 #
 
-## Enviroment for Java runtime ##
-
-ENV JAVA_XX_OPTS "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
-ENV JAVA_MEM_OPTS "-Xmx256m -Xms64m"
-
-## Environment for program invocation ##
+ENV JAVA_XX_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap" JAVA_MEM_OPTS="-Xmx256m -Xms64m"
 
 ENV LOCALE ""
 
@@ -31,10 +26,12 @@ ENV RULES_FILE "/var/local/fagi/rules.xml"
 ENV LEFT_ID "a"
 ENV LEFT_FILE "/var/local/fagi/input/a.nt"
 ENV LEFT_CLASSIFICATION_FILE ""
+ENV LEFT_DATE ""
 
 ENV RIGHT_ID "b"
 ENV RIGHT_FILE "/var/local/fagi/input/b.nt"
 ENV RIGHT_CLASSIFICATION_FILE ""
+ENV RIGHT_DATE ""
 
 ENV LINKS_ID "links"
 ENV LINKS_FILE "/var/local/fagi/input/links.nt"

@@ -19,8 +19,7 @@
     <defaultAction>concatenate</defaultAction>
     <actionRuleSet>
       <actionRule>
-        <!--<action>keep-left</action>-->
-        <action>concatenate</action>
+        <action>keep-left</action>
         <condition>
           <function>isSameSimpleNormalize(a1, b1, 0.8)</function>
         </condition>

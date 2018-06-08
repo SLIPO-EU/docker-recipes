@@ -8,6 +8,7 @@ fi
 if [ ! -f "${RULES_FILE}" ]; then
     echo "The rules configuration file (${RULES_FILE}) is not readable" && exit 1
 fi
+rules_file=$(realpath ${RULES_FILE})
 
 if [ -z "${LEFT_FILE}" ]; then
     echo "The left input file is not given (specify LEFT_FILE)" && exit 1
@@ -60,8 +61,7 @@ esac
 # Edit configuration file according to environment
 #
 
-test -n "${LOCALE}" && \
-    xmlstarlet ed --inplace --update specification/locale -v "${LOCALE}" ${spec_file}
+test -n "${LOCALE}" && xmlstarlet ed --inplace --update specification/locale -v "${LOCALE}" ${spec_file}
 
 test -n "${INPUT_FORMAT}" && test "${INPUT_FORMAT}" != "NT" && \
     xmlstarlet ed --inplace --update specification/inputFormat -v "${INPUT_FORMAT}" ${spec_file}
@@ -72,15 +72,17 @@ test -n "${OUTPUT_FORMAT}" && test "${OUTPUT_FORMAT}" != "NT" && \
 test -n "${SIMILARITY}" && \
     xmlstarlet ed --inplace --update specification/similarity -v "${SIMILARITY}" ${spec_file}
 
+xmlstarlet ed --inplace --update specification/rules -v "${rules_file}" ${spec_file}
+
 xmlstarlet ed --inplace --update specification/left/id -v "${LEFT_ID}" ${spec_file}
 xmlstarlet ed --inplace --update specification/left/file -v "${LEFT_FILE}" ${spec_file}
-test -n "${LEFT_CLASSIFICATION_FILE}" && \
-    xmlstarlet ed --inplace --update specification/left/categories -v "${LEFT_CLASSIFICATION_FILE}" ${spec_file}
+test -n "${LEFT_CLASSIFICATION_FILE}" && xmlstarlet ed --inplace --update specification/left/categories -v "${LEFT_CLASSIFICATION_FILE}" ${spec_file}
+test -n "${LEFT_DATE}" && xmlstarlet ed --inplace --update specification/left/date -v "${LEFT_DATE}" ${spec_file}
 
 xmlstarlet ed --inplace --update specification/right/id -v "${RIGHT_ID}" ${spec_file}
 xmlstarlet ed --inplace --update specification/right/file -v "${RIGHT_FILE}" ${spec_file}
-test -n "${RIGHT_CLASSIFICATION_FILE}" && \
-    xmlstarlet ed --inplace --update specification/right/categories -v "${RIGHT_CLASSIFICATION_FILE}" ${spec_file}
+test -n "${RIGHT_CLASSIFICATION_FILE}" && xmlstarlet ed --inplace --update specification/right/categories -v "${RIGHT_CLASSIFICATION_FILE}" ${spec_file}
+test -n "${RIGHT_DATE}" && xmlstarlet ed --inplace --update specification/right/date -v "${RIGHT_DATE}" ${spec_file}
 
 xmlstarlet ed --inplace --update specification/links/id -v "${LINKS_ID}" ${spec_file}
 xmlstarlet ed --inplace --update specification/links/file -v "${LINKS_FILE}" ${spec_file}
@@ -104,5 +106,5 @@ test -n "${TARGET_STATS_NAME}" && \
 # Run command
 #
 
-exec java ${JAVA_XX_OPTS} ${JAVA_MEM_OPTS} -Dlog4j.configurationFile=log4j2.xml -jar fagi-standalone.jar -spec ${spec_file} -rules ${RULES_FILE}
+exec java ${JAVA_XX_OPTS} ${JAVA_MEM_OPTS} -Dlog4j.configurationFile=log4j2.xml -jar fagi-standalone.jar -spec ${spec_file}
 
