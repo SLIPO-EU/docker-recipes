@@ -1,4 +1,7 @@
 /volumes
 /secrets
 
+/samples/*
+!/samples/1
+
 .m2-repo

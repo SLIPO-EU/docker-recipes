@@ -17,8 +17,8 @@ Build a shaded JAR localy:
 
 Build the target image (only target JAR is copied):
 
-    docker build -t local/deer:1.0.2 .
-    docker tag local/deer:1.0.2 athenarc/deer:1.0
+    docker build -t local/deer:1.1.3 .
+    docker tag local/deer:1.1.3 athenarc/deer:1.1
 
 ### Examples
 
@@ -27,5 +27,5 @@ Run an example:
     docker run --name deer-1 -it \
         --volume "$PWD/samples/1/config.ttl:/var/local/deer/config.ttl:ro" \
         --volume "$PWD/volumes/1/output:/var/local/deer/output:rw" \
-        local/deer:1.0.2
+        local/deer:1.1.3
 

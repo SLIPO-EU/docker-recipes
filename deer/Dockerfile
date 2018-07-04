@@ -1,6 +1,6 @@
 FROM openjdk:9-jdk
 
-ENV DEER_VERSION "1.0.2"
+ENV DEER_VERSION "1.1.3"
 
 RUN mkdir /usr/local/deer /var/local/deer
 WORKDIR /usr/local/deer
