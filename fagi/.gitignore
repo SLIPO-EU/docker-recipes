@@ -2,4 +2,5 @@
 /secrets
 /volumes
 
-/samples/*/output/
+/samples/*
+!/samples/[1-9]
