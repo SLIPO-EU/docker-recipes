@@ -7,7 +7,7 @@ RUN mkdir /var/local/triplegeo /usr/local/triplegeo /usr/local/triplegeo/lib
 WORKDIR /usr/local/triplegeo/
 
 COPY triplegeo/target/lib/ database-drivers/target/dependency/ ./lib/
-COPY triplegeo/target/triplegeo-1.4-SNAPSHOT.jar ./triplegeo.jar
+COPY triplegeo/target/triplegeo-${TRIPLEGEO_VERSION}-SNAPSHOT.jar ./triplegeo.jar
 
 #
 # Define environment
@@ -15,8 +15,7 @@ COPY triplegeo/target/triplegeo-1.4-SNAPSHOT.jar ./triplegeo.jar
 
 ## Enviroment for Java runtime ##
 
-ENV JAVA_XX_OPTS "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
-ENV JAVA_MEM_OPTS "-Xmx512m -Xms64m"
+ENV JAVA_XX_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=2" JAVA_MEM_OPTS="-Xms128m"
 
 ## Environment common to all input sources ##
 

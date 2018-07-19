@@ -13,7 +13,7 @@ COPY fagi-standalone.jar docker-entrypoint.sh log4j2.xml spec-default.xml ./
 # Define environment
 #
 
-ENV JAVA_XX_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap" JAVA_MEM_OPTS="-Xmx256m -Xms64m"
+ENV JAVA_XX_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=2" JAVA_MEM_OPTS="-Xms128m"
 
 ENV LOCALE ""
 

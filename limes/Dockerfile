@@ -15,8 +15,7 @@ COPY limes-standalone.jar docker-entrypoint.sh ./
 
 ## Enviroment for Java runtime ##
 
-ENV JAVA_XX_OPTS "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
-ENV JAVA_MEM_OPTS "-Xmx256m -Xms64m"
+ENV JAVA_XX_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=2" JAVA_MEM_OPTS="-Xms128m"
 
 ## Environment for program invocation ##
 

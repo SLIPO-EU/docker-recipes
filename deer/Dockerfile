@@ -11,12 +11,10 @@ COPY deer/deer-cli/target/deer-cli-${DEER_VERSION}.jar /usr/local/deer/
 # Define environment
 #
 
-ENV JAVA_XX_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap" JAVA_MEM_OPTS="-Xmx1536m -Xms256m"
+ENV JAVA_XX_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=2" JAVA_MEM_OPTS="-Xms128m"
 
 ENV CONFIG_FILE="config.ttl"
-
 ENV OUTPUT_DIR="output" OUTPUT_FORMAT="N-TRIPLES"
-
 ENV INPUT_FILE="input/1.nt"
 
 #
