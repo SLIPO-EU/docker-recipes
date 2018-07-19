@@ -31,6 +31,3 @@ Run on a pair of files `a.nt` (the left) and `b.nt` (the right) using links `lin
         --env TARGET_STATS_NAME=stats \
         local/fagi:1.2
 
- 
-
-
