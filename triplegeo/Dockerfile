@@ -13,10 +13,6 @@ COPY triplegeo/target/triplegeo-${TRIPLEGEO_VERSION}-SNAPSHOT.jar ./triplegeo.ja
 # Define environment
 #
 
-## Enviroment for Java runtime ##
-
-ENV JAVA_XX_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=2" JAVA_MEM_OPTS="-Xms128m"
-
 ## Environment common to all input sources ##
 
 ENV CONFIG_FILE "/var/local/triplegeo/options.conf"

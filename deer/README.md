@@ -26,6 +26,7 @@ Run an example:
 
     docker run --name deer-1 -it \
         --volume "$PWD/samples/1/config.ttl:/var/local/deer/config.ttl:ro" \
+        --volume "$PWD/samples/1/input/1.nt:/var/local/deer/input/1.nt" \
         --volume "$PWD/volumes/1/output:/var/local/deer/output:rw" \
         local/deer:1.1.3
 

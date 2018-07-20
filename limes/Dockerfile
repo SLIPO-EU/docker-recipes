@@ -13,22 +13,13 @@ COPY limes-standalone.jar docker-entrypoint.sh ./
 # Define environment
 #
 
-## Enviroment for Java runtime ##
-
-ENV JAVA_XX_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=2" JAVA_MEM_OPTS="-Xms128m"
-
-## Environment for program invocation ##
-
 ENV CONFIG_FILE "/var/local/limes/config.xml"
 
 # Specify an output directory (overrides configuration file) 
 ENV OUTPUT_DIR "/var/local/limes/output/"
 
-ENV SOURCE_FILE "/var/local/limes/input/a.nt"
-ENV TARGET_FILE "/var/local/limes/input/b.nt"
-
-ENV ACCEPTED_NAME "accepted"
-ENV REVIEW_NAME "review"
+ENV SOURCE_FILE="/var/local/limes/input/a.nt" TARGET_FILE="/var/local/limes/input/b.nt"
+ENV ACCEPTED_NAME="accepted" REVIEW_NAME="review"
 
 #
 # Define entrypoint

@@ -3,8 +3,9 @@
 set -e
 
 CLASSPATH="triplegeo.jar:lib/*"
+MAIN_CLASS="eu.slipo.athenarc.triplegeo.Extractor"
+JAVA_OPTS="-Xms128m"
 
-MAIN_CLASS=eu.slipo.athenarc.triplegeo.Extractor
 
 if [ ! -f "${CONFIG_FILE}" ]; then
     echo "No configuration given (specify CONFIG_FILE in environment)!" 1>&2
@@ -96,5 +97,13 @@ fi
 # Run command
 #
 
-exec java ${JAVA_XX_OPTS} ${JAVA_MEM_OPTS} -cp ${CLASSPATH} ${MAIN_CLASS} ${config_file}
+MAX_MEMORY_SIZE=$(( 64 * 1024 * 1024 * 1024 ))
+
+memory_size=$(cat /sys/fs/cgroup/memory/memory.memsw.limit_in_bytes)
+if (( memory_size > 0 && memory_size < MAX_MEMORY_SIZE )); then
+    max_heap_size=$(( memory_size * 80 / 100 ))
+    JAVA_OPTS="${JAVA_OPTS} -Xmx$(( max_heap_size / 1024 / 1024 ))m"
+fi
+
+exec java ${JAVA_OPTS} -cp ${CLASSPATH} ${MAIN_CLASS} ${config_file}
 

@@ -2,6 +2,9 @@
 
 set -e
 
+JAVA_OPTS="-Xms128m"
+
+
 if [ -z "${CONFIG_FILE}" ]; then
     echo "The configuration is missing (specify CONFIG_FILE in environment)!" 1>&2
     exit 1
@@ -75,7 +78,7 @@ N3|n3|Notation3)
   ;;
 esac
 
-# Todo: The following should be more selective, noe it matches every fromUri!
+# Todo: The following should be more selective, now it matches every fromUri!
 sed -i -e "s~^\([[:space:]]*\)[:]fromUri[[:space:]]\+\"\([^\"]*\)\"~\1:fromUri \"${input_file}\"~" ${config_file}
 
 sed -i -e "/^[:]output_node[[:space:]]*$/,/^[:].*/ s~\([[:space:]]*\):outputFile[[:space:]]\+\"\([^\"]*\)\"~\1:outputFile \"${output_dir}/output.${output_extension}\"~" ${config_file}
@@ -86,7 +89,14 @@ sed -i -e "/^[:]output_node[[:space:]]*$/,/^[:].*/ s~\([[:space:]]*\):outputForm
 # Run command
 #
 
+MAX_MEMORY_SIZE=$(( 64 * 1024 * 1024 * 1024 ))
+
+memory_size=$(cat /sys/fs/cgroup/memory/memory.memsw.limit_in_bytes)
+if (( memory_size > 0 && memory_size < MAX_MEMORY_SIZE )); then
+    max_heap_size=$(( memory_size * 80 / 100 ))
+    JAVA_OPTS="${JAVA_OPTS} -Xmx$(( max_heap_size / 1024 / 1024 ))m"
+fi
+
 jar_file="/usr/local/deer/deer-cli-${DEER_VERSION}.jar"
 
-exec java ${JAVA_XX_OPTS} ${JAVA_MEM_OPTS} -jar ${jar_file} ${config_file}
-
+exec java ${JAVA_OPTS} -jar ${jar_file} ${config_file}
