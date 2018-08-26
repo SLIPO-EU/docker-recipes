@@ -12,7 +12,7 @@ Package and install Triplegeo along with dependencies (database drivers are pack
 
 Build image:
 
-    docker build -t local/triplegeo:1.4 .
+    docker build -t local/triplegeo:1.5 .
 
 ### Examples
 
@@ -29,7 +29,7 @@ by bind-mounting the proper input/output volumes:
         --volume "$(pwd)/volumes/shapefile/1/output:/var/local/triplegeo/output:rw" \
         --env INPUT_FILE=/var/local/triplegeo/input/points.shp \
         --tmpfs /tmp:size=128M 
-        local/triplegeo:1.4
+        local/triplegeo:1.5
 
 #### Example: Reading from a plain CSV file
 
@@ -43,7 +43,7 @@ generates a corresponding output file (e.g for `TTL` serialization, `foo.csv` ge
         --volume "$(pwd)/samples/csv/1/input:/var/local/triplegeo/input:ro" \
         --volume "$(pwd)/volumes/csv/1/output:/var/local/triplegeo/output" \
         --env INPUT_FILE=/var/local/triplegeo/input/part1.csv:/var/local/triplegeo/input/part2.csv:/var/local/triplegeo/input/part3.csv \
-        local/triplegeo:1.4
+        local/triplegeo:1.5
 
 #### Example: Reading from a database table
 
@@ -64,5 +64,5 @@ password is needed to connect to the database, the password file must be bind-mo
         --env DB_USERNAME=slipo \
         --volume "$(pwd)/secrets/password:/var/local/triplegeo/secrets/password:ro" \
         --env DB_PASSWORD_FILE=/var/local/triplegeo/secrets/password \
-        local/triplegeo:1.4
+        local/triplegeo:1.5
 

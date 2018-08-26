@@ -1,6 +1,6 @@
 FROM openjdk:8-jdk
 
-ENV TRIPLEGEO_VERSION "1.4"
+ENV TRIPLEGEO_VERSION "1.5"
 
 RUN mkdir /var/local/triplegeo /usr/local/triplegeo /usr/local/triplegeo/lib
 
