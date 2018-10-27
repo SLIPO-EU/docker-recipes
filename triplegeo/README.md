@@ -10,9 +10,13 @@ Package and install Triplegeo along with dependencies (database drivers are pack
 
     mvn install
 
-Build image:
+Build image for Triplegeo:
 
-    docker build -t local/triplegeo:1.5 .
+    docker build -f triplegeo.dockerfile -t local/triplegeo:1.5 .
+
+Build image for reverse Triplegeo:
+
+    docker build -f reverse-triplegeo.dockerfile -t local/reverse-triplegeo:1.5 .
 
 ### Examples
 
@@ -65,4 +69,18 @@ password is needed to connect to the database, the password file must be bind-mo
         --volume "$(pwd)/secrets/password:/var/local/triplegeo/secrets/password:ro" \
         --env DB_PASSWORD_FILE=/var/local/triplegeo/secrets/password \
         local/triplegeo:1.5
+
+#### Example: Convert an N-TRIPLE file to a CSV (reverse transformation)
+
+This is an example of a reverse transformation (triples converted to tabular data).
+
+Transform a group of NT files to a single CSV file:
+
+    docker run -t --name reverse-triplegeo-1 \
+        --volume "$(pwd)/samples/ntriple-to-csv/1/options.conf:/var/local/triplegeo/options.conf:ro" \
+        --volume "$(pwd)/samples/ntriple-to-csv/1/query.sparql:/var/local/triplegeo/query.sparql:ro" \
+        --volume "$(pwd)/samples/ntriple-to-csv/1/input:/var/local/triplegeo/input:ro" \
+        --volume "$(pwd)/volumes/ntriple-to-csv/1/output:/var/local/triplegeo/output" \
+        --env INPUT_FILE=/var/local/triplegeo/input/classification.nt:/var/local/triplegeo/input/part1.nt:/var/local/triplegeo/input/part2.nt:/var/local/triplegeo/input/part3.nt \ 
+        local/reverse-triplegeo:1.5
 

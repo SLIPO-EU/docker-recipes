@@ -1,3 +1,6 @@
+# -*- mode: dockerfile -*-
+# vi: set ft=dockerfile :
+
 FROM openjdk:8-jdk
 
 ENV TRIPLEGEO_VERSION "1.5"
@@ -42,9 +45,9 @@ ENV DB_USERNAME ""
 ENV DB_PASSWORD_FILE "" 
 
 #
-# Define entrypoint
+# Define command
 #
 
-COPY docker-entrypoint.sh ./
-RUN chmod +x docker-entrypoint.sh
-CMD ["./docker-entrypoint.sh"]
+COPY run-triplegeo.sh ./
+RUN chmod +x run-triplegeo.sh
+CMD ["./run-triplegeo.sh"]
