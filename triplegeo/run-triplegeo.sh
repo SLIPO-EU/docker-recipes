@@ -26,22 +26,20 @@ fi
 # Build a custom configuration file based on environment variables and given configuration file
 #
 
-config_file=$(mktemp -p /var/local/triplegeo -t options-XXXXXXX.conf)
+config_file=$(mktemp -p "/var/local/triplegeo" -t options-XXXXXXX.conf)
 cp ${CONFIG_FILE} ${config_file}
 
-output_dir="${OUTPUT_DIR%%/}/"
-sed -i -e "s~^outputDir[ ]*=[ ]*.*$~outputDir = ${output_dir}~"  ${config_file}
-
-sed -i -e "s~^tmpDir[ ]*=[ ]*.*$~tmpDir = /tmp/~"  ${config_file}
-
-sed -i -e "s~^mappingSpec[ ]*=[ ]*.*$~mappingSpec = ${MAPPINGS_FILE}~"  ${config_file}
-sed -i -e "s~^classificationSpec[ ]*=[ ]*.*$~classificationSpec = ${CLASSIFICATION_FILE}~"  ${config_file}
+output_dir="${OUTPUT_DIR%%/}"
+sed -i -e "/^outputDir[ ]*=/ d" -e "1 i outputDir = ${output_dir}/" ${config_file}
+sed -i -e "/^tmpDir[ ]*=/ d" -e "/^outputDir[ ]*=/ a tmpDir = /tmp" ${config_file}
 
 # The INPUT_FILE may be a single file or a list of colon-separated input files
 # Split and join by ';' as expected by triplegeo
 input_files=$(IFS=':' p=( $INPUT_FILE ); IFS=';'; echo "${p[*]}")
-# Edit configuration file
-sed -i -e "s~^inputFiles[ ]*=[ ]*.*$~inputFiles = ${input_files}~"  ${config_file}
+sed -i -e "/^inputFiles[ ]*=/ d" -e "1 i inputFiles = ${input_files}" ${config_file}
+
+sed -i -e "/^mappingSpec[ ]*=/ d" -e "/^inputFiles[ ]*=/ a mappingSpec = ${MAPPINGS_FILE}" ${config_file}
+sed -i -e "/^classificationSpec[ ]*=/ d" -e "/^mappingSpec[ ]*=/ a classificationSpec = ${CLASSIFICATION_FILE}" ${config_file}
 
 
 if [ -n "${DB_URL}" ]; then
@@ -106,4 +104,3 @@ if (( memory_size > 0 && memory_size < MAX_MEMORY_SIZE )); then
 fi
 
 exec java ${JAVA_OPTS} -cp ${CLASSPATH} ${MAIN_CLASS} ${config_file}
-

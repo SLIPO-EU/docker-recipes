@@ -74,7 +74,7 @@ password is needed to connect to the database, the password file must be bind-mo
 
 This is an example of a reverse transformation (triples converted to tabular data).
 
-Transform a group of NT files to a single CSV file:
+Transform a group of N-TRIPLES files to a single CSV file:
 
     docker run -t --name reverse-triplegeo-1 \
         --volume "$(pwd)/samples/ntriple-to-csv/1/options.conf:/var/local/triplegeo/options.conf:ro" \

@@ -21,6 +21,8 @@ ENV SPARQL_FILE "/var/local/triplegeo/query.sparql"
 
 # Specify an output directory (overrides configuration file) 
 ENV OUTPUT_DIR "/var/local/triplegeo/output/"
+# Specify an output name (without the extension)
+ENV OUTPUT_NAME "points"
 
 # Specify an input file or a colon-separated list of files (overrides configuration file).
 # Note that these files must correspond to container-local existing file paths.
