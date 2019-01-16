@@ -14,6 +14,10 @@ Build image:
 
     docker build -t local/fagi:1.2 docker-build
 
+Tag image:
+
+    docker tag local/fagi:1.2 athenarc/fagi:1.2 
+
 ### Examples
 
 Run on a pair of files `a.nt` (the left) and `b.nt` (the right) using links `links.nt`:
@@ -24,10 +28,11 @@ Run on a pair of files `a.nt` (the left) and `b.nt` (the right) using links `lin
         --volume "$(pwd)/samples/1/input/b.nt:/var/local/fagi/input/b.nt:ro" \
         --volume "$(pwd)/samples/1/input/links.nt:/var/local/fagi/input/links.nt:ro" \
         --volume "$(pwd)/volumes/1/output:/var/local/fagi/output" \
+        --env VERBOSE=false \
         --env TARGET_MODE=AA_MODE \
         --env TARGET_FUSED_NAME=fused \
         --env TARGET_REMAINING_NAME=remaining \
         --env TARGET_REVIEW_NAME=review \
         --env TARGET_STATS_NAME=stats \
-        local/fagi:1.2
+        athenarc/fagi:1.2
 

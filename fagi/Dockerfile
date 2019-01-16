@@ -7,13 +7,15 @@ RUN mkdir /var/local/fagi /usr/local/fagi
 
 WORKDIR /usr/local/fagi/
 
-COPY fagi-standalone.jar docker-entrypoint.sh log4j2.xml spec-default.xml ./
+COPY fagi-standalone.jar docker-command.sh log4j2.xml config-default.xml ./
 
 #
 # Define environment
 #
 
 ENV LOCALE ""
+
+ENV VERBOSE "false"
 
 ENV INPUT_FORMAT "NT"
 ENV OUTPUT_FORMAT "NT"
@@ -33,6 +35,7 @@ ENV RIGHT_DATE ""
 
 ENV LINKS_ID "links"
 ENV LINKS_FILE "/var/local/fagi/input/links.nt"
+ENV LINKS_FORMAT ""
 
 ENV OUTPUT_DIR "/var/local/fagi/output/"
 ENV TARGET_MODE "AA_MODE"
@@ -43,9 +46,9 @@ ENV TARGET_REVIEW_NAME "review"
 ENV TARGET_STATS_NAME "stats"
 
 #
-# Define entrypoint
+# Define command
 #
 
-RUN chmod +x docker-entrypoint.sh
-CMD ["./docker-entrypoint.sh"]
+RUN chmod +x docker-command.sh
+CMD ["./docker-command.sh"]
 

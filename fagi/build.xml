@@ -18,12 +18,12 @@
     <mkdir dir="docker-build"/>
     
     <copy file="Dockerfile" tofile="docker-build/Dockerfile" overwrite="true"/>
-    <copy file="docker-entrypoint.sh" tofile="docker-build/docker-entrypoint.sh" overwrite="true"/>
+    <copy file="docker-command.sh" tofile="docker-build/docker-command.sh" overwrite="true"/>
     
     <copy file="${build_dir}/fagi-${fagi.version}.jar" tofile="docker-build/fagi-standalone.jar" overwrite="true" />
     
     <copy file="log4j2.xml" tofile="docker-build/log4j2.xml" overwrite="true"/>
-    <copy file="spec-default.xml" tofile="docker-build/spec-default.xml" overwrite="true"/>
+    <copy file="config-default.xml" tofile="docker-build/config-default.xml" overwrite="true"/>
     
     <!--
     <copy todir="docker-build/dependency">
