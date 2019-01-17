@@ -1,13 +1,13 @@
 FROM openjdk:8-jdk
 
-ENV LIMES_VERSION "1.3.0"
+ENV LIMES_VERSION "1.5.4"
 
 RUN apt-get update && apt-get install -y xmlstarlet
 RUN mkdir /var/local/limes
 
 WORKDIR /usr/local/limes/
 
-COPY limes-standalone.jar docker-entrypoint.sh ./
+COPY limes-standalone.jar docker-command.sh ./
 
 #
 # Define environment
@@ -22,8 +22,8 @@ ENV SOURCE_FILE="/var/local/limes/input/a.nt" TARGET_FILE="/var/local/limes/inpu
 ENV ACCEPTED_NAME="accepted" REVIEW_NAME="review"
 
 #
-# Define entrypoint
+# Define command
 #
 
-RUN chmod +x docker-entrypoint.sh
-CMD ["./docker-entrypoint.sh"]
+RUN chmod +x docker-command.sh
+CMD ["./docker-command.sh"]

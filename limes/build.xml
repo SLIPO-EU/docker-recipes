@@ -18,7 +18,7 @@
   <target name="prepare-docker-build">
     <mkdir dir="docker-build"/>
     <copy file="Dockerfile" tofile="docker-build/Dockerfile" overwrite="true"/>
-    <copy file="docker-entrypoint.sh" tofile="docker-build/docker-entrypoint.sh" overwrite="true"/>
+    <copy file="docker-command.sh" tofile="docker-build/docker-command.sh" overwrite="true"/>
     <copy file="${build_dir}/limes-core-${limes.version}.jar" tofile="docker-build/limes-standalone.jar" overwrite="true" />
     <!--
     <copy todir="docker-build/dependency">
