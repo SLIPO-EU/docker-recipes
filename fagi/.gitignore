@@ -2,5 +2,4 @@
 /secrets
 /volumes
 
-/samples/*
-!/samples/[1-9]
+/samples/SLIPO-*

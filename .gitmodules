@@ -10,3 +10,9 @@
 [submodule "deer/deer"]
 	path = deer/deer
 	url = https://github.com/SLIPO-EU/deer
+[submodule "fagi/fagi-partitioner"]
+	path = fagi/fagi-partitioner
+	url = https://github.com/SLIPO-EU/fagi-partitioner.git
+[submodule "fagi/fagi-merger"]
+	path = fagi/fagi-merger
+	url = https://github.com/SLIPO-EU/fagi-merger.git
