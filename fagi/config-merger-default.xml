@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merge>
+  <partitions>2</partitions>
+  <fusionMode>aa_mode</fusionMode>
+  <datasetA>input/a.nt</datasetA>
+  <datasetB>input/b.nt</datasetB>
+  <unlinkedA>partitions/unlinked-A.nt</unlinkedA>
+  <unlinkedB>partitions/unlinked-B.nt</unlinkedB>
+  <inputDir>partitions/</inputDir> <!-- this is the output directory of the partioner -->
+  <outputDir>output/</outputDir>
+</merge>

@@ -3,35 +3,92 @@
 <project name="fagi-recipe" default="build" basedir=".">
   
   <property file="build.properties" />
-  <property name="project_dir" value="fagi" />
-  <property name="build_dir" value="${project_dir}/target" />
+  
+  <property name="fagi.project-dir" value="fagi" />
+  <property name="fagi-partitioner.project-dir" value="fagi-partitioner" />
+  <property name="fagi-merger.project-dir" value="fagi-merger" />
 
-  <target name="package">
-    <exec executable="mvn" dir="${project_dir}">
+  <target name="clean">
+    <delete dir="docker-build/fagi"/>
+    <delete dir="docker-build/fagi-partitioner"/>
+    <delete dir="docker-build/fagi-merger"/>
+  </target>
+
+  <!-- 
+     Define helper tasks for building submodules 
+    -->
+
+  <target name="fagi.package">
+    <exec executable="mvn" dir="${fagi.project-dir}">
+       <arg value="clean" />
+       <arg value="package" />
+    </exec>
+  </target>
+  
+  <target name="fagi-partitioner.package">
+    <exec executable="mvn" dir="${fagi-partitioner.project-dir}">
+       <arg value="clean" />
+       <arg value="package" />
+    </exec>
+  </target>
+  
+  <target name="fagi-merger.package">
+    <exec executable="mvn" dir="${fagi-merger.project-dir}">
        <arg value="clean" />
        <arg value="package" />
     </exec>
   </target>
 
-  <!-- Prepare context directory for docker build -->
-  <target name="prepare-docker-build">
-    <mkdir dir="docker-build"/>
-    
-    <copy file="Dockerfile" tofile="docker-build/Dockerfile" overwrite="true"/>
-    <copy file="docker-command.sh" tofile="docker-build/docker-command.sh" overwrite="true"/>
-    
-    <copy file="${build_dir}/fagi-${fagi.version}.jar" tofile="docker-build/fagi-standalone.jar" overwrite="true" />
-    
-    <copy file="log4j2.xml" tofile="docker-build/log4j2.xml" overwrite="true"/>
-    <copy file="config-default.xml" tofile="docker-build/config-default.xml" overwrite="true"/>
-    
-    <!--
-    <copy todir="docker-build/dependency">
-      <fileset dir="${build_dir}/dependency">
-        <include name="*.jar"/>      
-      </fileset>  
-    </copy>
-    -->
+  <!-- 
+     Prepare context directories for docker build 
+   -->
+  
+  <target name="prepare-docker-build" 
+    depends="fagi.prepare-docker-build,fagi-partitioner.prepare-docker-build,fagi-merger.prepare-docker-build" />
+   
+  <target name="fagi.prepare-docker-build">
+    <fail message="The submodule build (${fagi.project-dir}/target) is not available!">
+      <condition>
+        <not><available type="dir" file="${fagi.project-dir}/target" /></not>
+      </condition>
+    </fail>
+    <mkdir dir="docker-build/fagi"/>
+    <copy file="fagi.dockerfile" tofile="docker-build/fagi/Dockerfile" overwrite="true"/>
+    <copy file="run-fagi.sh" tofile="docker-build/fagi/run-fagi.sh" overwrite="true"/>
+    <copy file="heap-size-funcs.sh" tofile="docker-build/fagi/heap-size-funcs.sh" overwrite="true"/>
+    <copy file="${fagi.project-dir}/target/fagi-${fagi.version}.jar" tofile="docker-build/fagi/fagi.jar" overwrite="true" />
+    <copy file="log4j2.xml" tofile="docker-build/fagi/log4j2.xml" overwrite="true"/>
+    <copy file="config-default.xml" tofile="docker-build/fagi/config-default.xml" overwrite="true"/>
+  </target>
+
+  <target name="fagi-partitioner.prepare-docker-build">
+    <fail message="The submodule build (${fagi-partitioner.project-dir}/target) is not available!">
+      <condition>
+        <not><available type="dir" file="${fagi-partitioner.project-dir}/target" /></not>
+      </condition>
+    </fail>
+    <mkdir dir="docker-build/fagi-partitioner"/>
+    <copy file="fagi-partitioner.dockerfile" tofile="docker-build/fagi-partitioner/Dockerfile" overwrite="true"/>
+    <copy file="run-fagi-partitioner.sh" tofile="docker-build/fagi-partitioner/run-fagi-partitioner.sh" overwrite="true"/>
+    <copy file="heap-size-funcs.sh" tofile="docker-build/fagi-partitioner/heap-size-funcs.sh" overwrite="true"/>
+    <copy file="${fagi-partitioner.project-dir}/target/fagi-partitioner-${fagi.version}.jar" tofile="docker-build/fagi-partitioner/fagi-partitioner.jar" overwrite="true" />
+    <copy file="log4j2.xml" tofile="docker-build/fagi-partitioner/log4j2.xml" overwrite="true"/>
+    <copy file="config-partitioner-default.xml" tofile="docker-build/fagi-partitioner/partition-default.xml" overwrite="true"/>
+  </target>
+
+  <target name="fagi-merger.prepare-docker-build">
+    <fail message="The submodule build (${fagi-merger.project-dir}/target) is not available!">
+      <condition>
+        <not><available type="dir" file="${fagi-merger.project-dir}/target" /></not>
+      </condition>
+    </fail>
+    <mkdir dir="docker-build/fagi-merger"/>
+    <copy file="fagi-merger.dockerfile" tofile="docker-build/fagi-merger/Dockerfile" overwrite="true"/>
+    <copy file="run-fagi-merger.sh" tofile="docker-build/fagi-merger/run-fagi-merger.sh" overwrite="true"/>
+    <copy file="heap-size-funcs.sh" tofile="docker-build/fagi-merger/heap-size-funcs.sh" overwrite="true"/>
+    <copy file="${fagi-merger.project-dir}/target/fagi-merger-${fagi.version}.jar" tofile="docker-build/fagi-merger/fagi-merger.jar" overwrite="true" />
+    <copy file="log4j2.xml" tofile="docker-build/fagi-merger/log4j2.xml" overwrite="true"/>
+    <copy file="config-merger-default.xml" tofile="docker-build/fagi-merger/merge-default.xml" overwrite="true"/>
   </target>
 
 </project>

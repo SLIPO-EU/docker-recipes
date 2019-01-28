@@ -2,21 +2,25 @@
 
 ### Build
 
-Package project into a JAR:
+Package projects (helper to build all submodules):
 
     ant package
 
-Prepare build context:
+Prepare build context for images:
 
     ant prepare-docker-build
 
-Build image:
+Build images:
 
-    docker build -t local/fagi:1.2 docker-build
+    docker build -t local/fagi:1.2 docker-build/fagi
+    docker build -t local/fagi-partitioner:1.2 docker-build/fagi-partitioner
+    docker build -t local/fagi-merger:1.2 docker-build/fagi-merger
 
-Tag image:
+Tag images:
 
     docker tag local/fagi:1.2 athenarc/fagi:1.2 
+    docker tag local/fagi-partitioner:1.2 athenarc/fagi-partitioner:1.2 
+    docker tag local/fagi-merger:1.2 athenarc/fagi-merger:1.2 
 
 ### Examples
 

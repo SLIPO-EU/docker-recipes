@@ -2,9 +2,6 @@
 
 set -e
 
-JAVA_OPTS="-Xms128m"
-
-
 if [ -z "${RULES_FILE}" ]; then
     echo "The rules configuration file is not given (specify RULES_FILE)" && exit 1
 fi
@@ -114,17 +111,11 @@ test -n "${TARGET_STATS_NAME}" && \
 test "true" == "${VERBOSE}" && \
     xmlstarlet ed --inplace --update specification/target/fusionLog -v "${output_dir}/fusion.log" ${config_file}
     
-
 #
 # Run command
 #
 
-MAX_MEMORY_SIZE=$(( 64 * 1024 * 1024 * 1024 ))
+. ./heap-size-funcs.sh
+JAVA_OPTS="-Xms128m $(max_heap_size_as_java_option)"
 
-memory_size=$(cat /sys/fs/cgroup/memory/memory.memsw.limit_in_bytes)
-if (( memory_size > 0 && memory_size < MAX_MEMORY_SIZE )); then
-    max_heap_size=$(( memory_size * 80 / 100 ))
-    JAVA_OPTS="${JAVA_OPTS} -Xmx$(( max_heap_size / 1024 / 1024 ))m"
-fi
-
-exec java ${JAVA_OPTS} -Dlog4j.configurationFile=log4j2.xml -jar fagi-standalone.jar -spec ${config_file}
+exec java ${JAVA_OPTS} -Dlog4j.configurationFile=log4j2.xml -jar fagi.jar -spec ${config_file}
