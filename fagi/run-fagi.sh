@@ -47,23 +47,9 @@ output_dir="${OUTPUT_DIR%%/}"
 config_file=$(mktemp -p /var/local/fagi -t config-XXXXXXX.xml)
 cp config-default.xml ${config_file}
 
-#
-# Determine output format/extension
-#
+. ./data-formats.sh
 
-output_extension=
-case ${OUTPUT_FORMAT} in
-TTL)
-  output_extension="ttl";;
-N3)
-  output_extension="n3";;
-*)
-  output_extension="nt";;
-esac
-
-#
-# Edit configuration file according to environment
-#
+output_extension=$(data_format_to_extension ${OUTPUT_FORMAT})
 
 test -n "${LOCALE}" && xmlstarlet ed --inplace --update specification/locale -v "${LOCALE}" ${config_file}
 
@@ -109,7 +95,7 @@ test -n "${TARGET_REVIEW_NAME}" && \
 test -n "${TARGET_STATS_NAME}" && \
     xmlstarlet ed --inplace --update specification/target/statistics -v "${output_dir}/${TARGET_STATS_NAME}.json" ${config_file}
 test "true" == "${VERBOSE}" && \
-    xmlstarlet ed --inplace --update specification/target/fusionLog -v "${output_dir}/fusion.log" ${config_file}
+    xmlstarlet ed --inplace --update specification/target/fusionLog -v "${output_dir}/fusionLog.txt" ${config_file}
     
 #
 # Run command

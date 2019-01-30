@@ -1,11 +1,13 @@
 #!/bin/bash
 
-MAX_MEMORY_SIZE=$(( 64 * 1024 * 1024 * 1024 ))
-
-DEFAULT_PERCENTAGE=80
 
 function determine_max_heap_size_in_megabytes()
 {
+    set +x
+    
+    MAX_MEMORY_SIZE=$(( 64 * 1024 * 1024 * 1024 ))
+    DEFAULT_PERCENTAGE=80
+    
     percentage=${1:-${DEFAULT_PERCENTAGE}}
     memory_size=$(cat /sys/fs/cgroup/memory/memory.memsw.limit_in_bytes)
     if (( memory_size > 0 && memory_size < MAX_MEMORY_SIZE )); then
@@ -16,6 +18,8 @@ function determine_max_heap_size_in_megabytes()
 
 function max_heap_size_as_java_option()
 {
+    set +x
+    
     max_heap_size=$(determine_max_heap_size_in_megabytes)
     if [ -n "${max_heap_size}" ]; then 
         echo "-Xmx${max_heap_size}m"

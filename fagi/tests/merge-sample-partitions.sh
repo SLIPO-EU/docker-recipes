@@ -1,6 +1,7 @@
 #!/bin/bash -x
 
 sample_dir=${1}
+grid_size=${2}
 
 if [ ! -d "${sample_dir}" ]; then
     echo "No such directory (${sample_dir})" && exit 1;
@@ -19,7 +20,10 @@ fi
 
 fusion_mode=$(cat "${config_properties_file}" | grep -o -P -e '(?<=^target\.mode[[:space:]]=[[:space:]])([^[:space:]])+$')
 
-grid_size=3
+grid_size=$((grid_size + 0))
+if (( grid_size < 2 )); then
+    echo "The grid_size (i.e number of partitions) must be greater or equal to 2" && exit 1
+fi
 
 container_name="fagi-merger-$(echo -n "${sample_name}"| tr '[:space:]-' '_' | tr '[:upper:]' '[:lower:]')"
 

@@ -9,7 +9,7 @@ RUN mkdir /var/local/fagi /usr/local/fagi
 
 WORKDIR /usr/local/fagi/
 
-COPY fagi-merger.jar run-fagi-merger.sh heap-size-funcs.sh log4j2.xml merge-default.xml ./
+COPY fagi-merger.jar run-fagi-merger.sh data-formats.sh heap-size-funcs.sh log4j2.xml merge-default.xml ./
 
 #
 # Define environment
@@ -21,9 +21,10 @@ ENV INPUT_FORMAT="NT" OUTPUT_FORMAT="NT"
 
 ENV LEFT_FILE="/var/local/fagi/input/a.nt" RIGHT_FILE="/var/local/fagi/input/b.nt"
 
-ENV INPUT_DIR="/var/local/fagi/partitions/" OUTPUT_DIR="/var/local/fagi/output/"
+ENV INPUT_DIR="/var/local/fagi/partitions/" PARTIAL_OUTPUT_DIR_NAME="output"
 
-ENV TARGET_MODE="AA_MODE"
+ENV OUTPUT_DIR="/var/local/fagi/output/"
+ENV TARGET_MODE="AA_MODE" TARGET_ID="ab" TARGET_FUSED_NAME="fused" TARGET_REMAINING_NAME="remaining" TARGET_REVIEW_NAME="review" TARGET_STATS_NAME="stats"
 
 #
 # Define command

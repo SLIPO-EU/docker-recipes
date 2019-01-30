@@ -56,6 +56,7 @@
     <copy file="fagi.dockerfile" tofile="docker-build/fagi/Dockerfile" overwrite="true"/>
     <copy file="run-fagi.sh" tofile="docker-build/fagi/run-fagi.sh" overwrite="true"/>
     <copy file="heap-size-funcs.sh" tofile="docker-build/fagi/heap-size-funcs.sh" overwrite="true"/>
+    <copy file="data-formats.sh" tofile="docker-build/fagi/data-formats.sh" overwrite="true"/>
     <copy file="${fagi.project-dir}/target/fagi-${fagi.version}.jar" tofile="docker-build/fagi/fagi.jar" overwrite="true" />
     <copy file="log4j2.xml" tofile="docker-build/fagi/log4j2.xml" overwrite="true"/>
     <copy file="config-default.xml" tofile="docker-build/fagi/config-default.xml" overwrite="true"/>
@@ -71,6 +72,7 @@
     <copy file="fagi-partitioner.dockerfile" tofile="docker-build/fagi-partitioner/Dockerfile" overwrite="true"/>
     <copy file="run-fagi-partitioner.sh" tofile="docker-build/fagi-partitioner/run-fagi-partitioner.sh" overwrite="true"/>
     <copy file="heap-size-funcs.sh" tofile="docker-build/fagi-partitioner/heap-size-funcs.sh" overwrite="true"/>
+    <copy file="data-formats.sh" tofile="docker-build/fagi-partitioner/data-formats.sh" overwrite="true"/>
     <copy file="${fagi-partitioner.project-dir}/target/fagi-partitioner-${fagi.version}.jar" tofile="docker-build/fagi-partitioner/fagi-partitioner.jar" overwrite="true" />
     <copy file="log4j2.xml" tofile="docker-build/fagi-partitioner/log4j2.xml" overwrite="true"/>
     <copy file="config-partitioner-default.xml" tofile="docker-build/fagi-partitioner/partition-default.xml" overwrite="true"/>
@@ -86,6 +88,7 @@
     <copy file="fagi-merger.dockerfile" tofile="docker-build/fagi-merger/Dockerfile" overwrite="true"/>
     <copy file="run-fagi-merger.sh" tofile="docker-build/fagi-merger/run-fagi-merger.sh" overwrite="true"/>
     <copy file="heap-size-funcs.sh" tofile="docker-build/fagi-merger/heap-size-funcs.sh" overwrite="true"/>
+    <copy file="data-formats.sh" tofile="docker-build/fagi-merger/data-formats.sh" overwrite="true"/>
     <copy file="${fagi-merger.project-dir}/target/fagi-merger-${fagi.version}.jar" tofile="docker-build/fagi-merger/fagi-merger.jar" overwrite="true" />
     <copy file="log4j2.xml" tofile="docker-build/fagi-merger/log4j2.xml" overwrite="true"/>
     <copy file="config-merger-default.xml" tofile="docker-build/fagi-merger/merge-default.xml" overwrite="true"/>

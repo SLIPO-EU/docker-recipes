@@ -2,10 +2,19 @@
 <merge>
   <partitions>2</partitions>
   <fusionMode>aa_mode</fusionMode>
-  <datasetA>input/a.nt</datasetA>
-  <datasetB>input/b.nt</datasetB>
-  <unlinkedA>partitions/unlinked-A.nt</unlinkedA>
-  <unlinkedB>partitions/unlinked-B.nt</unlinkedB>
-  <inputDir>partitions/</inputDir> <!-- this is the output directory of the partioner -->
-  <outputDir>output/</outputDir>
+  <datasetA>/var/local/fagi/input/a.nt</datasetA>
+  <datasetB>/var/local/fagi/input/b.nt</datasetB>
+  <unlinkedA>/var/local/fagi/partitions/unlinked-A.nt</unlinkedA>
+  <unlinkedB>/var/local/fagi/partitions/unlinked-B.nt</unlinkedB>
+  <inputDir>/var/local/fagi/partitions/</inputDir> <!-- this is the output directory of the partioner -->
+  <partialOutputDirName>output</partialOutputDirName>
+  <target>
+    <outputDir>/var/local/fagi/output</outputDir>
+    <fused>/var/local/fagi/output/fused.nt</fused>
+    <remaining>/var/local/fagi/output/remaining.nt</remaining>
+    <ambiguous>/var/local/fagi/output/review.nt</ambiguous>
+    <statistics>/var/local/fagi/output/stats.json</statistics>
+    <fusionLog>/var/local/fagi/output/fusion.log</fusionLog>
+    <fusionProperties>/var/local/fagi/output/fusion.properties</fusionProperties>
+  </target>
 </merge>

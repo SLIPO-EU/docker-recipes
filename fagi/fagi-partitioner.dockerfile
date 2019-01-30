@@ -9,7 +9,7 @@ RUN mkdir /var/local/fagi /usr/local/fagi
 
 WORKDIR /usr/local/fagi/
 
-COPY fagi-partitioner.jar run-fagi-partitioner.sh heap-size-funcs.sh log4j2.xml partition-default.xml ./
+COPY fagi-partitioner.jar run-fagi-partitioner.sh data-formats.sh heap-size-funcs.sh log4j2.xml partition-default.xml ./
 
 #
 # Define environment

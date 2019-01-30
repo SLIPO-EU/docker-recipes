@@ -43,23 +43,16 @@ fi
 # Build a custom configuration file based on defaults and given environment variables
 #
 
+. ./data-formats.sh
+
 config_file=$(mktemp -p /var/local/fagi -t partition-XXXXXXX.xml)
 cp partition-default.xml ${config_file}
 
-input_extension=
-case ${INPUT_FORMAT} in
-TTL)
-  input_extension="ttl";;
-N3)
-  input_extension="n3";;
-*)
-  input_extension="nt";;
-esac
+input_extension=$(data_format_to_extension "${INPUT_FORMAT}")
 
 if [ "${input_extension}" != "${LEFT_FILE##*.}" ]; then
     echo "The left input file has an extension (${LEFT_FILE##*.}) not matching to input format" && exit 1;
 fi
-
 if [ "${input_extension}" != "${RIGHT_FILE##*.}" ]; then
     echo "The right input file has an extension (${RIGHT_FILE##*.}) not matching to input format" && exit 1;
 fi

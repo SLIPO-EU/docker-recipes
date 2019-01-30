@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <partitioning>
-  <datasetA>input/a.nt</datasetA>
-  <datasetB>input/b.nt</datasetB>
-  <links>input/links.nt</links>
-  <unlinkedA>output/unlinked-a.nt</unlinkedA>
-  <unlinkedB>output/unlinked-b.nt</unlinkedB>
+  <datasetA>/var/local/fagi/input/a.nt</datasetA>
+  <datasetB>/var/local/fagi/input/b.nt</datasetB>
+  <links>/var/local/fagi/input/input/links.nt</links>
+  <unlinkedA>/var/local/fagi/partitions/unlinked-a.nt</unlinkedA>
+  <unlinkedB>/var/local/fagi/partitions/unlinked-b.nt</unlinkedB>
   <partitions>2</partitions>
   <fusionMode>aa_mode</fusionMode>
-  <outputDir>output/</outputDir>
+  <outputDir>/var/local/fagi/partitions</outputDir>
 </partitioning>

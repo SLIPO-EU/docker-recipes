@@ -33,7 +33,7 @@ fi
 for i in $(seq 1 ${grid_size}); do
     partition_dir="${input_dir}/partition_${i}"
     if [ ! -d "${partition_dir}" ]; then
-        echo "Missing a partition (i=${i}) inside input directory: ${partition_dir}" && exit 1
+        echo "Expected to find a partition (i=${i}) inside input directory: ${partition_dir}" && exit 1
     fi
 done
 
@@ -44,23 +44,18 @@ done
 config_file=$(mktemp -p /var/local/fagi -t merge-XXXXXXX.xml)
 cp merge-default.xml ${config_file}
 
-input_extension=
-case ${INPUT_FORMAT} in
-TTL)
-  input_extension="ttl";;
-N3)
-  input_extension="n3";;
-*)
-  input_extension="nt";;
-esac
+. ./data-formats.sh
+
+input_extension=$(data_format_to_extension ${INPUT_FORMAT})
 
 if [ "${input_extension}" != "${LEFT_FILE##*.}" ]; then
     echo "The left input file has an extension (${LEFT_FILE##*.}) not matching to input format" && exit 1;
 fi
-
 if [ "${input_extension}" != "${RIGHT_FILE##*.}" ]; then
     echo "The right input file has an extension (${RIGHT_FILE##*.}) not matching to input format" && exit 1;
 fi
+
+output_extension=$(data_format_to_extension ${OUTPUT_FORMAT})
 
 xmlstarlet ed --inplace --update merge/partitions -v "${grid_size}" ${config_file}
 xmlstarlet ed --inplace --update merge/fusionMode -v "${TARGET_MODE}" ${config_file}
@@ -69,9 +64,17 @@ xmlstarlet ed --inplace --update merge/datasetA -v "${LEFT_FILE}" ${config_file}
 xmlstarlet ed --inplace --update merge/datasetB -v "${RIGHT_FILE}" ${config_file}
 xmlstarlet ed --inplace --update merge/unlinkedA -v "${input_dir}/unlinked-A.${input_extension}" ${config_file}
 xmlstarlet ed --inplace --update merge/unlinkedB -v "${input_dir}/unlinked-B.${input_extension}" ${config_file}
+xmlstarlet ed --inplace --update merge/partialOutputDirName -v "${PARTIAL_OUTPUT_DIR_NAME}" ${config_file}
 
 xmlstarlet ed --inplace --update merge/inputDir -v "${input_dir}/" ${config_file}
-xmlstarlet ed --inplace --update merge/outputDir -v "${output_dir}/" ${config_file}
+
+xmlstarlet ed --inplace --update merge/target/outputDir -v "${output_dir}/" ${config_file}
+xmlstarlet ed --inplace --update merge/target/fused -v "${output_dir}/${TARGET_FUSED_NAME}.${output_extension}" ${config_file}
+xmlstarlet ed --inplace --update merge/target/remaining -v "${output_dir}/${TARGET_REMAINING_NAME}.${output_extension}" ${config_file}
+xmlstarlet ed --inplace --update merge/target/ambiguous -v "${output_dir}/${TARGET_REVIEW_NAME}.${output_extension}" ${config_file}
+xmlstarlet ed --inplace --update merge/target/statistics -v "${output_dir}/${TARGET_STATS_NAME}.json" ${config_file}
+xmlstarlet ed --inplace --update merge/target/fusionLog -v "${output_dir}/fusionLog.txt" ${config_file}
+xmlstarlet ed --inplace --update merge/target/fusionProperties -v "${output_dir}/fusion.properties" ${config_file}
 
 #
 # Run command

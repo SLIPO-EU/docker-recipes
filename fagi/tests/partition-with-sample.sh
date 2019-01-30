@@ -1,6 +1,7 @@
 #!/bin/bash -x
 
 sample_dir=${1}
+grid_size=${2}
 
 if [ ! -d "${sample_dir}" ]; then
     echo "No such directory (${sample_dir})" && exit 1;
@@ -17,9 +18,12 @@ if [ ! -d "${PWD}/volumes" ]; then
     echo "A directory for output volumes is missing (expected at ${PWD}/volumes)" && exit 1
 fi
 
-fusion_mode=$(cat "${config_properties_file}" | grep -o -P -e '(?<=^target\.mode[[:space:]]=[[:space:]])([^[:space:]])+$')
+grid_size=$((grid_size + 0))
+if (( grid_size < 2 )); then
+    echo "The grid_size (i.e number of partitions) must be greater or equal to 2" && exit 1
+fi
 
-grid_size=3
+fusion_mode=$(cat "${config_properties_file}" | grep -o -P -e '(?<=^target\.mode[[:space:]]=[[:space:]])([^[:space:]])+$')
 
 container_name="fagi-partitioner-$(echo -n "${sample_name}"| tr '[:space:]-' '_' | tr '[:upper:]' '[:lower:]')"
 docker run -it --name ${container_name} \

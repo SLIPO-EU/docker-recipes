@@ -34,7 +34,7 @@
         <remaining>remaining.nt</remaining>
         <ambiguous>review.nt</ambiguous>
         <statistics>stats.json</statistics>
-        <fusionLog>fusion.txt</fusionLog>
+        <fusionLog>fusionLog.txt</fusionLog>
     </target>
     <ML>
         <name></name>

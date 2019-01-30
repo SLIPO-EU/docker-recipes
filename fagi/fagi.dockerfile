@@ -9,7 +9,7 @@ RUN mkdir /var/local/fagi /usr/local/fagi
 
 WORKDIR /usr/local/fagi/
 
-COPY fagi.jar run-fagi.sh heap-size-funcs.sh log4j2.xml config-default.xml ./
+COPY fagi.jar run-fagi.sh data-formats.sh heap-size-funcs.sh log4j2.xml config-default.xml ./
 
 #
 # Define environment
