@@ -6,7 +6,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <parent>
         <groupId>eu.slipo.docker-recipes</groupId>
         <artifactId>triplegeo-recipe</artifactId>
-        <version>1.5</version>
+        <version>1.7</version>
     </parent>
 
     <artifactId>triplegeo-database-drivers</artifactId>

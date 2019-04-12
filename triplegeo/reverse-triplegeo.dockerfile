@@ -3,7 +3,7 @@
 
 FROM openjdk:8-jdk
 
-ENV TRIPLEGEO_VERSION "1.6"
+ENV TRIPLEGEO_VERSION "1.7"
 
 RUN mkdir /var/local/triplegeo /usr/local/triplegeo /usr/local/triplegeo/lib
 
