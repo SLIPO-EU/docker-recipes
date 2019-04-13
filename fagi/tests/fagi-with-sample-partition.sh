@@ -1,5 +1,7 @@
 #!/bin/bash -x
 
+# NOTE: The partitioner (1.2.13) only works with NT-formatted links: this FAGI instance will expect only such links.
+
 sample_dir=${1}
 partition_number=${2}
 

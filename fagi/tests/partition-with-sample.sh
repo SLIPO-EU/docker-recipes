@@ -1,5 +1,7 @@
 #!/bin/bash -x
 
+# NOTE: The partitioner (1.2.13) only handles links in NT format 
+
 sample_dir=${1}
 grid_size=${2}
 

@@ -30,7 +30,7 @@ fi
 if [ ! -f "${LINKS_FILE}" ]; then
     echo "The links input file (${LINKS_FILE}) is not readable" && exit 1
 fi
-links_format_values=('nt' 'csv' 'csv-unique-links')
+links_format_values=('nt' 'csv' 'csv-unique-links' 'csv-ensembles')
 if [[ -n "${LINKS_FORMAT}" ]] && [[ "0" -eq $(echo ${links_format_values[@]} | grep -c -e "\\b${LINKS_FORMAT}\\b") ]]; then
     echo "The links format (${LINKS_FORMAT}) is invalid" && exit 1
 fi
