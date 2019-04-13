@@ -1,13 +1,13 @@
 FROM openjdk:8-jdk
 
-ENV LIMES_VERSION "1.5.4"
+ENV LIMES_VERSION "1.5.7"
 
 RUN apt-get update && apt-get install -y xmlstarlet
 RUN mkdir /var/local/limes
 
 WORKDIR /usr/local/limes/
 
-COPY limes-standalone.jar docker-command.sh ./
+COPY limes-standalone.jar docker-command.sh heap-size-funcs.sh ./
 
 #
 # Define environment

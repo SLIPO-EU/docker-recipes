@@ -18,6 +18,7 @@
   <target name="prepare-docker-build">
     <mkdir dir="docker-build"/>
     <copy file="Dockerfile" tofile="docker-build/Dockerfile" overwrite="true"/>
+    <copy file="heap-size-funcs.sh" tofile="docker-build/heap-size-funcs.sh" overwrite="true"/>
     <copy file="docker-command.sh" tofile="docker-build/docker-command.sh" overwrite="true"/>
     <copy file="${build_dir}/limes-core-${limes.version}.jar" tofile="docker-build/limes-standalone.jar" overwrite="true" />
     <!--

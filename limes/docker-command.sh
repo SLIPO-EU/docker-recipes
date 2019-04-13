@@ -2,8 +2,6 @@
 
 set -e
 
-JAVA_OPTS="-Xms128m"
-
 if [ -z "${CONFIG_FILE}" ]; then
     echo "Cannot find configuration file (specify CONFIG_FILE in environment)!" 1>&2
     exit 1
@@ -32,6 +30,9 @@ TTL|ttl)
 N3|n3|Notation3)
   output_extension="n3"
   ;;
+TAB|tab|CSV|csv)
+  output_extension="csv"
+  ;;
 *)
   output_extension="nt"
   ;;
@@ -59,12 +60,7 @@ fi
 # Run command
 #
 
-MAX_MEMORY_SIZE=$(( 64 * 1024 * 1024 * 1024 ))
-
-memory_size=$(cat /sys/fs/cgroup/memory/memory.memsw.limit_in_bytes)
-if (( memory_size > 0 && memory_size < MAX_MEMORY_SIZE )); then
-    max_heap_size=$(( memory_size * 80 / 100 ))
-    JAVA_OPTS="${JAVA_OPTS} -Xmx$(( max_heap_size / 1024 / 1024 ))m"
-fi
+. ./heap-size-funcs.sh
+JAVA_OPTS="-Xms128m $(max_heap_size_as_java_option)"
 
 exec java ${JAVA_OPTS} -jar limes-standalone.jar ${config_file}
