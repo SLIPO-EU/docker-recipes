@@ -1,7 +1,7 @@
 /volumes
 /secrets
 
-/samples/*
-!/samples/1
+/samples/SLIPO*
+
 
 .m2-repo

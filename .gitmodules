@@ -16,3 +16,6 @@
 [submodule "fagi/fagi-merger"]
 	path = fagi/fagi-merger
 	url = https://github.com/SLIPO-EU/fagi-merger.git
+[submodule "deer/deer-slipo-plugin"]
+	path = deer/deer-slipo-plugin
+	url = https://github.com/kdrsslr/deer-slipo-plugin

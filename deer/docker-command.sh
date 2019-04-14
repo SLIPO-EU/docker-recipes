@@ -2,9 +2,6 @@
 
 set -e
 
-JAVA_OPTS="-Xms128m"
-
-
 if [ -z "${CONFIG_FILE}" ]; then
     echo "The configuration is missing (specify CONFIG_FILE in environment)!" 1>&2
     exit 1
@@ -21,6 +18,7 @@ if [ -z "${input_file}" ]; then
 fi
 if [[ ${input_file} =~ ^\/.* ]]; then
     if [[ ${input_file} =~ ^\/var\/local\/deer/.* ]]; then
+        # Relativize input path (as expected by Deer)
         input_file=${input_file#/var/local/deer/}
     else
        echo "The input file is outside of working directory"
@@ -39,6 +37,7 @@ if [ -z "${output_dir}" ]; then
 fi
 if [[ ${output_dir} =~ ^\/.* ]]; then
     if [[ ${output_dir} =~ ^\/var\/local\/deer/.* ]]; then
+        # Relativize output path (as expected by Deer)
         output_dir=${output_dir#/var/local/deer/}
     else
        echo "The output directory is outside of working directory"
@@ -59,7 +58,8 @@ cp ${CONFIG_FILE} ${config_file}
 
 output_format=
 output_extension=
-case ${OUTPUT_FORMAT} in
+output_file=
+case "${OUTPUT_FORMAT}" in
 NT|N-TRIPLES|N_TRIPLES|nt)
   output_format="N-TRIPLES"
   output_extension="nt"
@@ -77,25 +77,26 @@ N3|n3|Notation3)
   output_extension="nt"
   ;;
 esac
+output_file="${output_dir}/${OUTPUT_NAME}.${output_extension}"
 
-# Todo: The following should be more selective, now it matches every fromUri!
-sed -i -e "s~^\([[:space:]]*\)[:]fromUri[[:space:]]\+\"\([^\"]*\)\"~\1:fromUri \"${input_file}\"~" ${config_file}
-
-sed -i -e "/^[:]output_node[[:space:]]*$/,/^[:].*/ s~\([[:space:]]*\):outputFile[[:space:]]\+\"\([^\"]*\)\"~\1:outputFile \"${output_dir}/output.${output_extension}\"~" ${config_file}
-
-sed -i -e "/^[:]output_node[[:space:]]*$/,/^[:].*/ s~\([[:space:]]*\):outputFormat[[:space:]]\+\"\([^\"]*\)\"~\1:outputFormat \"${output_format}\"~" ${config_file}
+sed_script="/var/local/deer/$(basename ${config_file}).sed"
+cat >${sed_script} <<EOD
+/^[:]fullInput[[:space:]]*$/,/^[:].*/ { 
+    s~^\([[:space:]]*\)deer[:]fromPath[[:space:]]\+\"\([^\"]*\)\"~\1deer:fromPath "${input_file}"~
+}
+/^[:]output_node[[:space:]]*$/,/^[:].*/ {
+    s~\([[:space:]]*\)deer[:]outputFile[[:space:]]\+\"\([^\"]*\)\"~\1deer:outputFile "${output_file}"~
+    s~\([[:space:]]*\)deer[:]outputFormat[[:space:]]\+\"\([^\"]*\)\"~\1deer:outputFormat "${output_format}"~
+}
+EOD
+sed -i -f ${sed_script} ${config_file}
 
 #
 # Run command
 #
 
-MAX_MEMORY_SIZE=$(( 64 * 1024 * 1024 * 1024 ))
-
-memory_size=$(cat /sys/fs/cgroup/memory/memory.memsw.limit_in_bytes)
-if (( memory_size > 0 && memory_size < MAX_MEMORY_SIZE )); then
-    max_heap_size=$(( memory_size * 80 / 100 ))
-    JAVA_OPTS="${JAVA_OPTS} -Xmx$(( max_heap_size / 1024 / 1024 ))m"
-fi
+. "/usr/local/deer/heap-size-funcs.sh"
+JAVA_OPTS="-Xms128m $(max_heap_size_as_java_option)"
 
 jar_file="/usr/local/deer/deer-cli-${DEER_VERSION}.jar"
 
