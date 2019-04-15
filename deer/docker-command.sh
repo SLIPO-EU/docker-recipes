@@ -60,7 +60,7 @@ output_format=
 output_extension=
 output_file=
 case "${OUTPUT_FORMAT}" in
-NT|N-TRIPLES|N_TRIPLES|nt)
+NT|N-TRIPLES|N-TRIPLE|N_TRIPLES|nt)
   output_format="N-TRIPLES"
   output_extension="nt"
   ;;
