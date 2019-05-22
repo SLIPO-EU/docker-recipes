@@ -63,4 +63,4 @@ fi
 . ./heap-size-funcs.sh
 JAVA_OPTS="-Xms128m $(max_heap_size_as_java_option)"
 
-exec java ${JAVA_OPTS} -jar limes-standalone.jar ${config_file}
+exec java ${JAVA_OPTS} -jar limes-standalone.jar -d ${output_dir}/stats.json ${config_file}
