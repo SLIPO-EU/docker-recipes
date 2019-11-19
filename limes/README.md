@@ -12,7 +12,7 @@ Prepare build context:
 
 Build image:
 
-    docker build -t local/limes:1.5.7 docker-build
+    docker build -t local/limes:1.7.0 docker-build
 
 ### Examples
 
@@ -23,6 +23,6 @@ Run on a pair of N-TRIPLES input files:
         --volume "$(pwd)/samples/1/input/a.nt:/var/local/limes/input/a.nt:ro" \
         --volume "$(pwd)/samples/1/input/b.nt:/var/local/limes/input/b.nt:ro" \
         --volume "$(pwd)/volumes/1/output:/var/local/limes/output" \
-        local/limes:1.5.7
+        local/limes:1.7.0
 
 

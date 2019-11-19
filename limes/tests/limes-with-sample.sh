@@ -23,5 +23,5 @@ docker run -it --name ${container_name} \
     --volume "${sample_dir}/input/a.nt:/var/local/limes/input/a.nt:ro" \
     --volume "${sample_dir}/input/b.nt:/var/local/limes/input/b.nt:ro" \
     --volume "${PWD}/volumes/${sample_name}/output:/var/local/limes/output" \
-    "local/limes:1.5.7"
+    "local/limes:1.7.0"
 
