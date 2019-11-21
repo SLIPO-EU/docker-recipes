@@ -1,6 +1,6 @@
-FROM openjdk:9-jdk
+FROM openjdk:11-jdk
 
-ENV DEER_VERSION "2.0.1"
+ENV DEER_VERSION "2.1.0"
 ENV DEER_SLIPO_PLUGIN_VERSION "1.0.0"
 
 RUN mkdir /usr/local/deer /usr/local/deer/plugins /var/local/deer /var/local/deer/input /var/local/deer/output

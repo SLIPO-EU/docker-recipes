@@ -19,7 +19,7 @@ mkdir -p "$PWD/volumes/${sample_name}"
 :>"$PWD/volumes/${sample_name}/enriched.nt"
 
 # Run container
-container_name="deer-$(echo -n "${sample_name}"| tr '[:space:]-' '_' | tr '[:upper:]' '[:lower:]')"
+container_name="deer-$(echo -n "${sample_name}"| tr '[:space:][.]-' '_' | tr '[:upper:]' '[:lower:]')"
 docker run -it --name "${container_name}" \
     --env "OUTPUT_NAME=enriched" \
     --volume "${sample_dir}/config.ttl:/var/local/deer/config.ttl:ro" \
@@ -27,5 +27,5 @@ docker run -it --name "${container_name}" \
     --volume "$PWD/volumes/${sample_name}/deer-analytics.json:/var/local/deer/deer-analytics.json:rw"  \
     --volume "$PWD/volumes/${sample_name}/enriched.nt:/var/local/deer/output/enriched.nt:rw" \
     --memory "1024m" --memory-swap "1536m" \
-    "local/deer:2.0.1"
+    "local/deer:2.1.0"
 
