@@ -30,8 +30,8 @@ Build JAR for Deer SLIPO plugin:
     
 Build the target image (only target JAR is copied):
 
-    docker build -t local/deer:2.1.0 .
-    docker tag local/deer:2.1.0 athenarc/deer:2.1
+    docker build -t local/deer:2.2.0 .
+    docker tag local/deer:2.2.0 athenarc/deer:2.2
 
 ### Examples
 
@@ -41,5 +41,5 @@ Run an example:
         --volume "$PWD/samples/1/config.ttl:/var/local/deer/config.ttl:ro" \
         --volume "$PWD/samples/1/input/1.nt:/var/local/deer/input/fused.nt:ro" \
         --volume "$PWD/volumes/1/output:/var/local/deer/output:rw" \
-        local/deer:2.1.0
+        local/deer:2.2.0
 

@@ -1,5 +1,7 @@
 #!/bin/bash -x
 
+DEER_VERSION="2.2.0"
+
 sample_dir=${1}
 
 if [ ! -d "${sample_dir}" ]; then
@@ -26,6 +28,6 @@ docker run -it --name "${container_name}" \
     --volume "${sample_dir}/input/fused.nt:/var/local/deer/input/fused.nt:ro" \
     --volume "$PWD/volumes/${sample_name}/deer-analytics.json:/var/local/deer/deer-analytics.json:rw"  \
     --volume "$PWD/volumes/${sample_name}/enriched.nt:/var/local/deer/output/enriched.nt:rw" \
-    --memory "1024m" --memory-swap "1536m" \
-    "local/deer:2.1.0"
+    --memory "3072m" --memory-swap "4096m" \
+    "local/deer:${DEER_VERSION}"
 
