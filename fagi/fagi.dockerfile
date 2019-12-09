@@ -10,6 +10,7 @@ RUN mkdir /var/local/fagi /usr/local/fagi
 WORKDIR /usr/local/fagi/
 
 COPY fagi.jar run-fagi.sh data-formats.sh heap-size-funcs.sh log4j2.xml config-default.xml ./
+COPY ml-rules ./ml-rules/
 
 #
 # Define environment
@@ -29,6 +30,8 @@ ENV LINKS_ID="links" LINKS_FILE="/var/local/fagi/input/links.nt" LINKS_FORMAT=""
 
 ENV OUTPUT_DIR="/var/local/fagi/output/"
 ENV TARGET_MODE="AA_MODE" TARGET_ID="ab" TARGET_FUSED_NAME="fused" TARGET_REMAINING_NAME="remaining" TARGET_REVIEW_NAME="review" TARGET_STATS_NAME="stats"
+
+ENV USE_ML_RULES="false"
 
 #
 # Define command

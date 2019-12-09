@@ -56,6 +56,7 @@
       </condition>
     </fail>
     <mkdir dir="docker-build/fagi"/>
+    <mkdir dir="docker-build/fagi/ml-rules"/>
     <copy file="fagi.dockerfile" tofile="docker-build/fagi/Dockerfile" overwrite="true"/>
     <copy file="run-fagi.sh" tofile="docker-build/fagi/run-fagi.sh" overwrite="true"/>
     <copy file="heap-size-funcs.sh" tofile="docker-build/fagi/heap-size-funcs.sh" overwrite="true"/>
@@ -63,6 +64,9 @@
     <copy file="${fagi.project-dir}/target/fagi-${fagi.version}.jar" tofile="docker-build/fagi/fagi.jar" overwrite="true" />
     <copy file="log4j2.xml" tofile="docker-build/fagi/log4j2.xml" overwrite="true"/>
     <copy file="config-default.xml" tofile="docker-build/fagi/config-default.xml" overwrite="true"/>
+    <copy todir="docker-build/fagi/ml-rules">
+      <fileset dir="fagi-ml-rules/" excludes="**/README.md,**/LICENSE" />
+    </copy>
   </target>
 
   <target name="fagi-partitioner.prepare-docker-build">

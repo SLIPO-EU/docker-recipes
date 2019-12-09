@@ -19,3 +19,6 @@
 [submodule "deer/deer-slipo-plugin"]
 	path = deer/deer-slipo-plugin
 	url = https://github.com/SLIPO-EU/deer-slipo-plugin/
+[submodule "fagi/fagi-ml-rules"]
+	path = fagi/fagi-ml-rules
+	url = https://github.com/SLIPO-EU/fagi-ml-rules

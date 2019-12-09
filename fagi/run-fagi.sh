@@ -96,7 +96,16 @@ test -n "${TARGET_STATS_NAME}" && \
     xmlstarlet ed --inplace --update specification/target/statistics -v "${output_dir}/${TARGET_STATS_NAME}.json" ${config_file}
 test "true" == "${VERBOSE}" && \
     xmlstarlet ed --inplace --update specification/target/fusionLog -v "${output_dir}/fusionLog.txt" ${config_file}
-    
+
+if [[ "true" == ${USE_ML_RULES} ]]; then
+    ml_rules_dir=$(realpath "ml-rules")
+    xmlstarlet ed --inplace --update specification/ML/name -v "${ml_rules_dir}/name_mdl" ${config_file}
+    xmlstarlet ed --inplace --update specification/ML/address -v "${ml_rules_dir}/street_mdl" ${config_file}
+    xmlstarlet ed --inplace --update specification/ML/website -v "${ml_rules_dir}/website_mdl" ${config_file}
+    xmlstarlet ed --inplace --update specification/ML/phone -v "${ml_rules_dir}/telephone_mdl" ${config_file}
+    xmlstarlet ed --inplace --update specification/ML/email -v "${ml_rules_dir}/email_mdl" ${config_file}
+fi
+
 #
 # Run command
 #
